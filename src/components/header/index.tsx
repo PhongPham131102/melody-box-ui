@@ -1,6 +1,7 @@
 import Image from "next/image";
 import logoApp from "@/public/logo.png";
 import registerIcon from "@/public/icons/register.png";
+import SearchBox from "../search-box";
 
 export default function Header() {
   return (
@@ -14,7 +15,7 @@ export default function Header() {
           className="ml-5"
         />
       </div>
-
+      <SearchBox />
       <div className="flex flex-row justify-center items-center gap-1 py-1 px-1.5 rounded-full bg-secondary group hover:bg-transparent transition-all duration-700">
         <button className="bg-main-text hover:cursor-pointer transition-all duration-300 px-8 py-2 rounded-full text-sm text-white font-bold">
           Đăng Nhập

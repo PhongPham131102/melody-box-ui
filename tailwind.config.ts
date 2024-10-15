@@ -15,6 +15,7 @@ const config: Config = {
         "secondary-text": "#A462C8",
         "thirst-text": "#4e3e61",
         secondary: "#2f2739",
+        thirst: "#34224F",
         "white-1": "#d7d7d7",
         background: "var(--background)",
         foreground: "var(--foreground)",

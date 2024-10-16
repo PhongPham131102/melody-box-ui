@@ -35,7 +35,7 @@ export default function Header() {
     resetOverlay();
   }, []);
   return (
-    <div className="w-full py-2 px-6 bg-header flex justify-between items-center overflow-hidden">
+    <div className="w-full py-2 px-6 bg-header flex justify-between items-center  z-[999] sticky top-0">
       <div className="flex flex-row justify-center items-center gap-2">
         <Image
           src={logoApp}

@@ -7,6 +7,18 @@ const nextConfig = {
     });
     return config;
   },
+  images: {
+    remotePatterns: [
+      {
+        protocol: "http",
+        hostname: "**", // Chấp nhận tất cả các tên miền với http
+      },
+      {
+        protocol: "https",
+        hostname: "**", // Chấp nhận tất cả các tên miền với https
+      },
+    ],
+  },
 };
 
 export default nextConfig;

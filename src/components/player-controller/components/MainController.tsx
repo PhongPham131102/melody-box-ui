@@ -15,7 +15,7 @@ import { MdSkipNext, MdSkipPrevious } from "react-icons/md";
 import { PiRepeatBold, PiRepeatOnceBold } from "react-icons/pi";
 import { TbArrowsShuffle } from "react-icons/tb";
 import { useAppDispatch, useAppSelector } from "@/src/lib/hooks/redux.hook";
-import Slider from "./Slider";
+import Slider from "./SliderController";
 
 export default function MainController() {
   const dispatch = useAppDispatch();

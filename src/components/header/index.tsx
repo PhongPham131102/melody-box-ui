@@ -13,8 +13,10 @@ export default function Header() {
   });
   const loginRef = useRef<HTMLButtonElement>(null);
   const registerRef = useRef<HTMLButtonElement>(null);
+  const currentButton = useRef<"login" | "register">("login");
 
   const handleHover = (button: "login" | "register") => {
+    currentButton.current = button;
     const buttonRef =
       button === "login" ? loginRef.current : registerRef.current;
     if (buttonRef) {
@@ -31,11 +33,32 @@ export default function Header() {
     }
   };
 
+  const updateOverlayPosition = () => {
+    const buttonRef =
+      currentButton.current === "login"
+        ? loginRef.current
+        : registerRef.current;
+    if (buttonRef) {
+      const { width, left } = buttonRef.getBoundingClientRect();
+      const bgColor =
+        currentButton.current === "login" ? "bg-main-text" : "bg-thirst-text";
+      setOverlayStyle({ width, left, bgColor });
+    }
+  };
+
   useEffect(() => {
-    resetOverlay();
+    resetOverlay(); // Initial overlay position
+
+    window.addEventListener("resize", updateOverlayPosition);
+    return () => {
+      window.removeEventListener("resize", updateOverlayPosition);
+    };
   }, []);
   return (
-    <div className="w-full py-2 px-6 bg-header flex justify-between items-center  z-[999] sticky top-0">
+    <div
+      id="sticky-header"
+      className="w-full py-2 px-6 bg-header flex justify-between items-center  z-[999] sticky top-0"
+    >
       <div className="flex flex-row justify-center items-center gap-2">
         <Image
           src={logoApp}
@@ -50,7 +73,7 @@ export default function Header() {
 
       <div
         onMouseLeave={resetOverlay}
-        className="relative flex items-center gap-1  rounded-full bg-secondary-1  transition-all duration-700"
+        className="relative flex items-center gap-1  rounded-full bg-secondary-1  transition-all duration-700 overflow-hidden"
       >
         <button
           ref={loginRef}
@@ -87,7 +110,8 @@ export default function Header() {
               (loginRef.current?.getBoundingClientRect().left || 0),
             height: "100%",
             transform: "translateY(-50%)",
-            transitionTimingFunction: "cubic-bezier( 0.785, 0.135, 0.15, 0.86 )",
+            transitionTimingFunction:
+              "cubic-bezier( 0.785, 0.135, 0.15, 0.86 )",
           }}
         ></div>
       </div>

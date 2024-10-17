@@ -26,10 +26,9 @@ const SongItem: React.FC<SongItemProps> = ({
       <div className="!w-[52px] !h-[52px] relative rounded overflow-hidden">
         <Image
           src={imageIcon}
-          layout="fill"
-          objectFit="cover"
+          fill
           alt="Album Cover"
-          className="rounded group-hover:brightness-75"
+          className="rounded group-hover:brightness-75 object-cover"
         />
         <Image
           src={playIcon}

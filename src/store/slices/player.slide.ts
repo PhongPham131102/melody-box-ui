@@ -1,16 +1,20 @@
 // store/slices/playerSlice.ts
-import { createSlice } from "@reduxjs/toolkit";
+import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 
 interface PlayerState {
   shuffle: boolean;
   isPlaying: boolean;
   repeatMode: "none" | "one" | "all";
+  volume: number;
+  isMuted: boolean;
 }
 
 const initialState: PlayerState = {
   shuffle: false,
   isPlaying: false,
   repeatMode: "none",
+  volume: 100,
+  isMuted: false,
 };
 
 const playerSlice = createSlice({
@@ -32,9 +36,27 @@ const playerSlice = createSlice({
         state.repeatMode = "none";
       }
     },
+    setVolume: (state, action: PayloadAction<number>) => {
+      state.volume = action.payload;
+      if (state.volume > 0) {
+        state.isMuted = false;
+      }
+    },
+    toggleMute: (state) => {
+      if (state.isMuted) {
+        state.isMuted = false;
+      } else {
+        state.isMuted = true;
+      }
+    },
   },
 });
 
-export const { toggleShuffle, togglePlayPause, setRepeatMode } =
-  playerSlice.actions;
+export const {
+  toggleShuffle,
+  togglePlayPause,
+  setRepeatMode,
+  setVolume,
+  toggleMute,
+} = playerSlice.actions;
 export default playerSlice.reducer;

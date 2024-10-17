@@ -16,7 +16,7 @@ export default function PlayerController() {
       id="player-controller"
       className={`sticky bottom-0 ${
         headerHeight === 0 ? "h-0" : "h-[90px]"
-      } bg-player-controler-main overflow-hidden transition-[height] duration-500`}
+      } bg-player-controler-main overflow-hidden transition-[height] duration-500 `}
     >
       <div
         style={{

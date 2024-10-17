@@ -22,6 +22,7 @@ const config: Config = {
           DEFAULT: "hsl(var(--secondary))",
           foreground: "hsl(var(--secondary-foreground))",
         },
+        "player-controler-main": "#130C1C",
         thirst: "#34224F",
         "white-1": "#d7d7d7",
         background: "hsl(var(--background))",

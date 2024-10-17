@@ -22,14 +22,18 @@ const SidebarItem: React.FC<SidebarItemProps> = ({
     >
       <span
         className={`  text-base  ${
-          isActive ? "text-white" : "group-hover:text-white brightness-90 text-[#dadada]"
+          isActive
+            ? "text-white"
+            : "group-hover:text-white brightness-90 text-[#dadada]"
         }`}
       >
         {icon}
       </span>
       <p
-        className={`  text-sm font-bold ${
-          isActive ? "text-white" : "group-hover:text-white brightness-90 text-[#dadada]"
+        className={`  text-sm  ${
+          isActive
+            ? "text-white font-bold"
+            : "group-hover:text-white brightness-90 text-[#dadada]"
         }`}
       >
         {label}

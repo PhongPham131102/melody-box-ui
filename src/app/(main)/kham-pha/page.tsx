@@ -1,6 +1,8 @@
 "use client";
+import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import Image from "next/image";
 import { useEffect, useRef, useState } from "react";
+import { FaCirclePlay } from "react-icons/fa6";
 import { GrFormNext, GrFormPrevious } from "react-icons/gr";
 
 export default function DiscoveryPage() {
@@ -134,49 +136,64 @@ export default function DiscoveryPage() {
     }
   };
   return (
-    <div className="w-full relative overflow-hidden select-none">
-      <div
-        className="w-full  relative py-2 h-64 group"
-        onMouseEnter={handleMouseEnter}
-        onMouseLeave={handleMouseLeave}
-      >
-        {!isFirstTime && (
-          <>
-            <span
-              onClick={handlePrevious}
-              className="absolute transition-all duration-300 flex opacity-0 invisible group-hover:!opacity-100 group-hover:!visible !text-4xl cursor-pointer text-white w-14 h-14 rounded-full left-0 bg-[#ffffff26] z-50 top-1/2 translate-x-1/2 -translate-y-1/4 items-center justify-center"
-            >
-              <GrFormPrevious />
-            </span>
-            <span
-              onClick={handleNext}
-              className="absolute transition-all duration-300 flex opacity-0 invisible group-hover:!opacity-100 group-hover:!visible !text-4xl cursor-pointer text-white w-14 h-14 rounded-full right-0 bg-[#ffffff26] z-50 top-1/2 -translate-x-1/2 -translate-y-1/4 items-center justify-center"
-            >
-              <GrFormNext />
-            </span>
-          </>
-        )}
-        <div ref={containerRef} className="w-full absolute py-2 h-full">
-          {src.map((imageSrc, index) => (
-            <div
-              key={index}
-              className="absolute px-2 w-[calc(100%/3)] h-full cursor-pointer"
-              style={{
-                left: "33.33%",
-                opacity: index === 1 ? "1" : "0.2",
-              }}
-            >
+    <div className="w-full relative overflow-hidden select-none flex">
+      <div className="w-full h-full px-10 py-6 flex flex-col">
+        <div
+          className="w-full  relative py-2 h-64 group"
+          onMouseEnter={handleMouseEnter}
+          onMouseLeave={handleMouseLeave}>
+          {!isFirstTime && (
+            <>
+              <span
+                onClick={handlePrevious}
+                className="absolute transition-all duration-300 flex opacity-0 invisible group-hover:!opacity-100 group-hover:!visible !text-4xl cursor-pointer text-white w-14 h-14 rounded-full left-0 bg-[#ffffff26] z-50 top-1/2 translate-x-1/2 -translate-y-1/4 items-center justify-center">
+                <GrFormPrevious />
+              </span>
+              <span
+                onClick={handleNext}
+                className="absolute transition-all duration-300 flex opacity-0 invisible group-hover:!opacity-100 group-hover:!visible !text-4xl cursor-pointer text-white w-14 h-14 rounded-full right-0 bg-[#ffffff26] z-50 top-1/2 -translate-x-1/2 -translate-y-1/4 items-center justify-center">
+                <GrFormNext />
+              </span>
+            </>
+          )}
+          <div ref={containerRef} className="w-full absolute py-2 h-full">
+            {src.map((imageSrc, index) => (
               <div
-                className="w-full h-full rounded-lg "
+                key={index}
+                className="absolute px-2 w-[calc(100%/3)] h-full cursor-pointer"
                 style={{
-                  backgroundImage: `url(${imageSrc})`,
-                  backgroundSize: "cover",
-                  backgroundRepeat: "no-repeat",
-                }}
-              ></div>
-            </div>
-          ))}
+                  left: "33.33%",
+                  opacity: index === 1 ? "1" : "0.2",
+                }}>
+                <div
+                  className="w-full h-full rounded-lg "
+                  style={{
+                    backgroundImage: `url(${imageSrc})`,
+                    backgroundSize: "cover",
+                    backgroundRepeat: "no-repeat",
+                  }}></div>
+              </div>
+            ))}
+          </div>
         </div>
+      </div>
+      <div className="m-4 rounded-lg w-1/4 flex flex-col gap-2 bg-header px-3">
+        <div className="text-white text-2xl py-8 font-bold flex gap-2 items-center">
+          BXH Bài Hát
+          <FaCirclePlay />
+        </div>
+        <Tabs defaultValue="account" className="w-full ">
+          <TabsList>
+            <TabsTrigger disabled value="account">
+              Account
+            </TabsTrigger>
+            <TabsTrigger value="password">Password</TabsTrigger>
+          </TabsList>
+          <TabsContent value="account">
+            Make changes to your account here.
+          </TabsContent>
+          <TabsContent value="password">Change your password here.</TabsContent>
+        </Tabs>
       </div>
     </div>
   );

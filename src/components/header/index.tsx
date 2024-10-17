@@ -4,8 +4,15 @@ import logoApp from "@/public/logo.png";
 import registerIcon from "@/public/icons/register.png";
 import SearchBox from "../search-box";
 import React, { useEffect, useRef, useState } from "react";
+import { useAppSelector } from "@/src/lib/hooks/redux.hook";
+import { RootState } from "@/src/store/store";
+import useGlobalLoading from "@/src/lib/hooks/usePageLoading";
 
 export default function Header() {
+  const isLoadingPage = useAppSelector(
+    (state: RootState) => state.ui.isLoadingPage
+  );
+  useGlobalLoading();
   const [overlayStyle, setOverlayStyle] = useState({
     width: 0,
     left: 0,
@@ -55,66 +62,71 @@ export default function Header() {
     };
   }, []);
   return (
-    <div
-      id="sticky-header"
-      className="w-full py-2 px-6 bg-header flex justify-between items-center  z-[999] sticky top-0"
-    >
-      <div className="flex flex-row justify-center items-center gap-2">
-        <Image
-          src={logoApp}
-          alt="Melody Box Logo"
-          width={66}
-          height={66}
-          className="ml-5"
-        />
-      </div>
-
-      <SearchBox />
-
+    <>
+      {isLoadingPage && (
+        <div className="w-screen h-screen bg-red-500 fixed z-[99999]"></div>
+      )}
       <div
-        onMouseLeave={resetOverlay}
-        className="relative flex items-center gap-1  rounded-full bg-secondary-1  transition-all duration-700 overflow-hidden"
+        id="sticky-header"
+        className="w-full py-2 px-6 bg-header flex justify-between items-center  z-[999] sticky top-0"
       >
-        <button
-          ref={loginRef}
-          onMouseEnter={() => handleHover("login")}
-          className=" z-20 cursor-pointer transition-all duration-300 px-8 py-3 rounded-full text-sm text-white font-bold"
-        >
-          Đăng Nhập
-        </button>
+        <div className="flex flex-row justify-center items-center gap-2">
+          <Image
+            src={logoApp}
+            alt="Melody Box Logo"
+            width={66}
+            height={66}
+            className="ml-5"
+          />
+        </div>
 
-        <button
-          ref={registerRef}
-          onMouseEnter={() => handleHover("register")}
-          className=" z-20 group flex items-center gap-1 px-8 py-3 cursor-pointer transition-all duration-500  text-white-1 text-sm font-bold"
-        >
-          <div className="transition-all duration-500 brightness-0 filter invert group-hover:brightness-100">
-            <Image
-              src={registerIcon}
-              alt="Register Icon"
-              width={14}
-              height={14}
-            />
-          </div>
-          <p className="transition-all duration-500 group-hover:text-white">
-            Đăng Ký
-          </p>
-        </button>
+        <SearchBox />
 
         <div
-          className={`${overlayStyle.bgColor} absolute top-1/2 -translate-y-1/2 rounded-full transition-all duration-300`}
-          style={{
-            width: overlayStyle.width,
-            left:
-              overlayStyle.left -
-              (loginRef.current?.getBoundingClientRect().left || 0),
-            height: "100%",
-            transform: "translateY(-50%)",
-            transitionTimingFunction:
-              "cubic-bezier( 0.785, 0.135, 0.15, 0.86 )",
-          }}
-        ></div>
+          onMouseLeave={resetOverlay}
+          className="relative flex items-center gap-1  rounded-full bg-secondary-1  transition-all duration-700 overflow-hidden"
+        >
+          <button
+            ref={loginRef}
+            onMouseEnter={() => handleHover("login")}
+            className=" z-20 cursor-pointer transition-all duration-300 px-8 py-3 rounded-full text-sm text-white font-bold"
+          >
+            Đăng Nhập
+          </button>
+
+          <button
+            ref={registerRef}
+            onMouseEnter={() => handleHover("register")}
+            className=" z-20 group flex items-center gap-1 px-8 py-3 cursor-pointer transition-all duration-500  text-white-1 text-sm font-bold"
+          >
+            <div className="transition-all duration-500 brightness-0 filter invert group-hover:brightness-100">
+              <Image
+                src={registerIcon}
+                alt="Register Icon"
+                width={14}
+                height={14}
+              />
+            </div>
+            <p className="transition-all duration-500 group-hover:text-white">
+              Đăng Ký
+            </p>
+          </button>
+
+          <div
+            className={`${overlayStyle.bgColor} absolute top-1/2 -translate-y-1/2 rounded-full transition-all duration-300`}
+            style={{
+              width: overlayStyle.width,
+              left:
+                overlayStyle.left -
+                (loginRef.current?.getBoundingClientRect().left || 0),
+              height: "100%",
+              transform: "translateY(-50%)",
+              transitionTimingFunction:
+                "cubic-bezier( 0.785, 0.135, 0.15, 0.86 )",
+            }}
+          ></div>
+        </div>
       </div>
-    </div>
+    </>
   );
 }

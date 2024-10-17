@@ -4,6 +4,7 @@ import StoreProvider from "@/src/app/redux.provider";
 import InforPlayer from "./components/InforPlayer";
 import MainController from "./components/MainController";
 import { useAppSelector } from "@/src/lib/hooks/redux.hook";
+import PlayBackPanel from "./components/PlaybackPanel";
 
 export default function PlayerController() {
   const headerHeight = useAppSelector((state) => state.ui.headerHeight);
@@ -31,7 +32,7 @@ export default function PlayerController() {
           artists={["Ogenus", "PiaLinh"]}
         />
         <StoreProvider children={<MainController />} />
-        <div className="w-full h-10"></div>
+        <PlayBackPanel />
       </div>
     </div>
   );

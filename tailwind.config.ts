@@ -10,6 +10,15 @@ const config: Config = {
   ],
   theme: {
     extend: {
+      animation: {
+        spin360: "spin360 0.5s cubic-bezier( 0.165, 0.84, 0.44, 1 ) forwards",
+      },
+      keyframes: {
+        spin360: {
+          "0%": { transform: "rotate(0deg)" },
+          "100%": { transform: "rotate(360deg)" },
+        },
+      },
       colors: {
         main: "#170f23",
         "main-1": "#5C4D71",
@@ -73,6 +82,23 @@ const config: Config = {
   },
   plugins: [
     require("tailwindcss-animate"),
+    function ({ addUtilities }: { addUtilities: Function }) {
+      const newUtilities = {
+        ".hover-zoom": {
+          position: "relative",
+          overflow: "hidden",
+          "&:hover > .zoomable": {
+            transform: "scale(1.1)",
+          },
+          "& > .zoomable": {
+            transition: "transform 0.5s ease-in-out",
+            transform: "scale(1)",
+          },
+        },
+      };
+
+      addUtilities(newUtilities, ["responsive", "hover"]);
+    },
     function ({ addUtilities }: { addUtilities: Function }) {
       const newUtilities = {
         ".custom-scroll": {

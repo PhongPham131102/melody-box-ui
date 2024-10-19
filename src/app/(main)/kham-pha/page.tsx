@@ -1,10 +1,14 @@
 "use client";
+
+import PlayLists from "@/src/components/PlayLists";
+import PlayList from "@/src/components/PlayLists";
+import SongMedia from "@/src/components/SongMedia";
 import Tab from "@/src/components/tabs";
 import { useAppSelector } from "@/src/lib/hooks/redux.hook";
 import { useEffect, useRef, useState } from "react";
 import { FaCirclePlay } from "react-icons/fa6";
 import { GrFormNext, GrFormPrevious } from "react-icons/gr";
-
+import { IoRefreshSharp } from "react-icons/io5";
 export default function DiscoveryPage() {
   const containerRef = useRef<HTMLDivElement>(null);
   const [isPaused, setIsPaused] = useState(false);
@@ -197,50 +201,114 @@ export default function DiscoveryPage() {
       }}
       className="w-full relative overflow-hidden select-none flex p-3"
     >
-      <div className="w-full h-full  flex flex-col pr-1.5">
-        <div
-          className="w-full  relative  h-52 group"
-          onMouseEnter={handleMouseEnter}
-          onMouseLeave={handleMouseLeave}
-        >
-          {!isFirstTime && (
-            <>
-              <span
-                onClick={handlePrevious}
-                className="absolute transition-all duration-300 flex opacity-0 invisible group-hover:!opacity-100 group-hover:!visible !text-4xl cursor-pointer text-white w-14 h-14 rounded-full left-0 bg-[#ffffff26] z-50 top-1/2 translate-x-1/2 -translate-y-1/4 items-center justify-center"
-              >
-                <GrFormPrevious />
-              </span>
-              <span
-                onClick={handleNext}
-                className="absolute transition-all duration-300 flex opacity-0 invisible group-hover:!opacity-100 group-hover:!visible !text-4xl cursor-pointer text-white w-14 h-14 rounded-full right-0 bg-[#ffffff26] z-50 top-1/2 -translate-x-1/2 -translate-y-1/4 items-center justify-center"
-              >
-                <GrFormNext />
-              </span>
-            </>
-          )}
-          <div ref={containerRef} className="w-full absolute  h-full">
-            {src.map((imageSrc, index) => (
-              <div
-                key={index}
-                className="absolute  w-[calc(100%/3)] h-full cursor-pointer first:pr-2.5 last:pl-2.5"
-                style={{
-                  left: "33.33%",
-                  opacity: index === 1 ? "1" : "0.2",
-                }}
-              >
+      <div className="w-full   flex flex-col pr-1.5 custom-scroll">
+        <div className="w-full">
+          {" "}
+          <div
+            className="w-full  relative  h-52 group"
+            onMouseEnter={handleMouseEnter}
+            onMouseLeave={handleMouseLeave}
+          >
+            {!isFirstTime && (
+              <>
+                <span
+                  onClick={handlePrevious}
+                  className="absolute transition-all duration-300 flex opacity-0 invisible group-hover:!opacity-100 group-hover:!visible !text-4xl cursor-pointer text-white w-14 h-14 rounded-full left-0 bg-[#ffffff26] z-50 top-1/2 translate-x-1/2 -translate-y-1/4 items-center justify-center"
+                >
+                  <GrFormPrevious />
+                </span>
+                <span
+                  onClick={handleNext}
+                  className="absolute transition-all duration-300 flex opacity-0 invisible group-hover:!opacity-100 group-hover:!visible !text-4xl cursor-pointer text-white w-14 h-14 rounded-full right-0 bg-[#ffffff26] z-50 top-1/2 -translate-x-1/2 -translate-y-1/4 items-center justify-center"
+                >
+                  <GrFormNext />
+                </span>
+              </>
+            )}
+            <div ref={containerRef} className="w-full absolute  h-full">
+              {src.map((imageSrc, index) => (
                 <div
-                  className="w-full h-full rounded-lg "
+                  key={index}
+                  className="absolute  w-[calc(100%/3)] h-full cursor-pointer first:pr-2.5 last:pl-2.5"
                   style={{
-                    backgroundImage: `url(${imageSrc})`,
-                    backgroundSize: "cover",
-                    backgroundRepeat: "no-repeat",
+                    left: "33.33%",
+                    opacity: index === 1 ? "1" : "0.2",
                   }}
-                ></div>
-              </div>
-            ))}
+                >
+                  <div
+                    className="w-full h-full rounded-lg "
+                    style={{
+                      backgroundImage: `url(${imageSrc})`,
+                      backgroundSize: "cover",
+                      backgroundRepeat: "no-repeat",
+                    }}
+                  ></div>
+                </div>
+              ))}
+            </div>
           </div>
         </div>
+        <div className="w-full flex flex-col gap-2 px-3 py-4">
+          <div className="w-full flex justify-between items-center py-2">
+            <span className="text-white font-bold text-lg">
+              Gợi Ý Dành Riêng Cho Bạn
+            </span>
+            <button className="group text-white justify-center items-center text-xs bg-main-text hover:brightness-90 py-1 px-3 rounded-full flex gap-1 uppercase">
+              <span className="group-hover:animate-spin360 transition-all duration-300 text-lg font-bold">
+                <IoRefreshSharp />
+              </span>
+              Làm mới
+            </button>
+          </div>
+          <div className="w-full grid grid-cols-3 gap-2.5">
+            <SongMedia
+              imageIcon="https://photo-resize-zmp3.zmdcdn.me/w165_r1x1_jpeg/cover/7/b/e/3/7be33b2123aee6e0982a5fde3c986df6.jpg"
+              title="Say Yes (Vietnamese Version) Say Yes (Vietnamese Version) Say Yes (Vietnamese Version)"
+              artists={["Ogenus", "PiaLinh"]}
+            />
+            <SongMedia
+              imageIcon="https://photo-resize-zmp3.zmdcdn.me/w165_r1x1_jpeg/cover/7/b/e/3/7be33b2123aee6e0982a5fde3c986df6.jpg"
+              title="Say Yes (Vietnamese Version) Say Yes (Vietnamese Version) Say Yes (Vietnamese Version)"
+              artists={["Ogenus", "PiaLinh"]}
+            />
+            <SongMedia
+              imageIcon="https://photo-resize-zmp3.zmdcdn.me/w165_r1x1_jpeg/cover/7/b/e/3/7be33b2123aee6e0982a5fde3c986df6.jpg"
+              title="Say Yes (Vietnamese Version) Say Yes (Vietnamese Version) Say Yes (Vietnamese Version)"
+              artists={["Ogenus", "PiaLinh"]}
+            />
+            <SongMedia
+              imageIcon="https://photo-resize-zmp3.zmdcdn.me/w165_r1x1_jpeg/cover/7/b/e/3/7be33b2123aee6e0982a5fde3c986df6.jpg"
+              title="Say Yes (Vietnamese Version) Say Yes (Vietnamese Version) Say Yes (Vietnamese Version)"
+              artists={["Ogenus", "PiaLinh"]}
+            />
+            <SongMedia
+              imageIcon="https://photo-resize-zmp3.zmdcdn.me/w165_r1x1_jpeg/cover/7/b/e/3/7be33b2123aee6e0982a5fde3c986df6.jpg"
+              title="Say Yes (Vietnamese Version) Say Yes (Vietnamese Version) Say Yes (Vietnamese Version)"
+              artists={["Ogenus", "PiaLinh"]}
+            />
+            <SongMedia
+              imageIcon="https://photo-resize-zmp3.zmdcdn.me/w165_r1x1_jpeg/cover/7/b/e/3/7be33b2123aee6e0982a5fde3c986df6.jpg"
+              title="Say Yes (Vietnamese Version) Say Yes (Vietnamese Version) Say Yes (Vietnamese Version)"
+              artists={["Ogenus", "PiaLinh"]}
+            />
+            <SongMedia
+              imageIcon="https://photo-resize-zmp3.zmdcdn.me/w165_r1x1_jpeg/cover/7/b/e/3/7be33b2123aee6e0982a5fde3c986df6.jpg"
+              title="Say Yes (Vietnamese Version) Say Yes (Vietnamese Version) Say Yes (Vietnamese Version)"
+              artists={["Ogenus", "PiaLinh"]}
+            />
+            <SongMedia
+              imageIcon="https://photo-resize-zmp3.zmdcdn.me/w165_r1x1_jpeg/cover/7/b/e/3/7be33b2123aee6e0982a5fde3c986df6.jpg"
+              title="Say Yes (Vietnamese Version) Say Yes (Vietnamese Version) Say Yes (Vietnamese Version)"
+              artists={["Ogenus", "PiaLinh"]}
+            />
+            <SongMedia
+              imageIcon="https://photo-resize-zmp3.zmdcdn.me/w165_r1x1_jpeg/cover/7/b/e/3/7be33b2123aee6e0982a5fde3c986df6.jpg"
+              title="Say Yes (Vietnamese Version) Say Yes (Vietnamese Version) Say Yes (Vietnamese Version)"
+              artists={["Ogenus", "PiaLinh"]}
+            />
+          </div>
+        </div>
+        <PlayLists />
       </div>
       <div className=" group w-1/4 h-full pl-1.5">
         <div className="group w-full h-full flex flex-col gap-2 bg-header px-3 rounded-lg custom-scroll">

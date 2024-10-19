@@ -4,6 +4,7 @@ import Header from "@/src/components/header";
 import PlayerController from "@/src/components/player-controller";
 import SideBar from "@/src/components/sidebar";
 import StoreProvider from "../redux.provider";
+import { useAppSelector } from "@/src/lib/hooks/redux.hook";
 
 export default function HomeLayout({
   children,
@@ -12,12 +13,12 @@ export default function HomeLayout({
 }>) {
   return (
     <>
-      <div className="bg-main w-full select-none min-h-[100vh]">
+      <div className=" select-none">
         <StoreProvider
           children={
             <>
               <Header />
-              <div className="w-full flex">
+              <div className="w-full flex sticky">
                 <SideBar />
                 {children}
               </div>

@@ -18,6 +18,7 @@ const config: Config = {
         "secondary-text": "#A462C8",
         "thirst-text": "#4e3e61",
         "secondary-1": "#2f2739",
+        "tab-active": "#6D6875",
         secondary: {
           DEFAULT: "hsl(var(--secondary))",
           foreground: "hsl(var(--secondary-foreground))",
@@ -70,6 +71,33 @@ const config: Config = {
       },
     },
   },
-  plugins: [require("tailwindcss-animate")],
+  plugins: [
+    require("tailwindcss-animate"),
+    function ({ addUtilities }: { addUtilities: Function }) {
+      const newUtilities = {
+        ".custom-scroll": {
+          overflow: "auto",
+          "&::-webkit-scrollbar": {
+            width: "4px",
+          },
+          "&::-webkit-scrollbar-track": {
+            background: "transparent",
+            "border-radius": "9999px", // Bo tròn track
+          },
+          "&::-webkit-scrollbar-thumb": {
+            background: "transparent",
+            "border-radius": "9999px",
+            transition: "all 0.3s",
+          },
+          "&:hover::-webkit-scrollbar-thumb": {
+            background: "#5d5765", // Màu khi hover
+          },
+        },
+      };
+
+      addUtilities(newUtilities, ["responsive", "hover"]);
+    },
+  ],
 };
+
 export default config;

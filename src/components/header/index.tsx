@@ -6,7 +6,7 @@ import SearchBox from "../search-box";
 import React, { useEffect, useRef, useState } from "react";
 import { useAppSelector } from "@/src/lib/hooks/redux.hook";
 import { RootState } from "@/src/store/store";
-import useGlobalLoading from "@/src/lib/hooks/usePageLoading";
+import useGlobalLoading from "@/src/lib/hooks/usePageLoading.hook";
 
 export default function Header() {
   const isLoadingPage = useAppSelector(
@@ -64,7 +64,7 @@ export default function Header() {
   return (
     <>
       {isLoadingPage && (
-        <div className="w-screen h-screen bg-red-500 fixed z-[99999]"></div>
+        <div className="w-screen h-screen bg-main fixed z-[99999] flex justify-center items-center"></div>
       )}
       <div
         id="sticky-header"

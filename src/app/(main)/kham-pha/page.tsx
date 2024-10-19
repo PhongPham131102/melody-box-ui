@@ -1,6 +1,6 @@
 "use client";
-import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
-import Image from "next/image";
+import Tab from "@/src/components/tabs";
+import { useAppSelector } from "@/src/lib/hooks/redux.hook";
 import { useEffect, useRef, useState } from "react";
 import { FaCirclePlay } from "react-icons/fa6";
 import { GrFormNext, GrFormPrevious } from "react-icons/gr";
@@ -69,7 +69,7 @@ export default function DiscoveryPage() {
   const handleMouseEnter = () => setIsPaused(true);
   const handleMouseLeave = () => setIsPaused(false);
   const transition =
-    "left 0.5s cubic-bezier(0.77, 0, 0.175, 1), opacity 0.5s cubic-bezier(0.77, 0, 0.175, 1)";
+    "left 0.5s cubic-bezier( 0.645, 0.045, 0.355, 1 ), opacity 0.5s cubic-bezier( 0.645, 0.045, 0.355, 1 )";
   const handleNext = () => {
     if (containerRef.current) {
       const items = Array.from(containerRef.current.children) as HTMLElement[];
@@ -135,65 +135,292 @@ export default function DiscoveryPage() {
       }
     }
   };
+  const songs = [
+    {
+      title: "TÌNH ĐẦU QUÁ CHÉN",
+      artists: 'ANH TRAI "SAY HI", Quang Hùng MasterD, Negav, Pháp Kiều, ERIK',
+    },
+    { title: "Bầu Trời Mới", artists: "Da LAB, Minh Tóc & Lam" },
+    { title: "Trận Bộ Nhớ", artists: 'ANH TRAI "SAY HI", Dương Domic' },
+    { title: "Bình Yên", artists: "Vũ., Binz" },
+    {
+      title:
+        "Đi Giữa Trời Rực Rỡ (Original Soundtrack from “Đi Giữa Trời Rực Rỡ”)",
+      artists: "Ngô Lan Hương, SK Pictures",
+    },
+    {
+      title: "Sao Hạng A",
+      artists: 'ANH TRAI "SAY HI", HIEUTHUHAI, Dương Domic, Song Luân, JSOL',
+    },
+    {
+      title: "Kim Phút, Kim Giờ",
+      artists:
+        'Isaac, Negav, HIEUTHUHAI, HURRYKNG, Pháp Kiều, ANH TRAI "SAY HI"',
+    },
+    {
+      title: "Ngáo Ngơ",
+      artists: 'ANH TRAI "SAY HI", HIEUTHUHAI, ERIK, Anh Tú Atus, JSOL, Orange',
+    },
+    { title: "Đâu Phải Vợ Anh", artists: "RAP VIỆT, Dangrangto" },
+    { title: "Trời Em Lại", artists: 'ANH TRAI "SAY HI", Quang Hùng MasterD' },
+  ];
+  const songsUs = [
+    { title: "BIRDS OF A FEATHER", artists: "Billie Eilish" },
+    { title: "Timeless", artists: "The Weeknd, Playboi Carti" },
+    { title: "Die With A Smile", artists: "Lady Gaga, Bruno Mars" },
+    { title: "Good Luck, Babe!", artists: "Chappell Roan" },
+    { title: "Taste", artists: "Sabrina Carpenter" },
+    { title: "I Love You, I'm Sorry", artists: "Gracie Abrams" },
+    { title: "A Bar Song (Tipsy)", artists: "Shaboozey" },
+    { title: "It's Ok I'M Ok", artists: "Tate McRae" },
+    { title: "Sympathy Is A Knife", artists: "Charli XCX" },
+    { title: "Hot To Go!", artists: "Chappell Roan" },
+  ];
+  const songsKorea = [
+    { title: "Mantra", artists: "JENNIE" },
+    { title: "Mantra (Explicit)", artists: "JENNIE" },
+    { title: "Magnetic", artists: "ILLIT" },
+    { title: "Rockstar", artists: "LISA" },
+    { title: "MOONLIT FLOOR", artists: "LISA" },
+    { title: "NEW WOMAN", artists: "LISA (BLACKPINK), Rosalía" },
+    { title: "ABCD", artists: "NAYEON (TWICE)" },
+    { title: "LIKE THAT", artists: "BABYMONSTER" },
+    { title: "LOVE, MONEY, FAME", artists: "SEVENTEEN, DJ Khaled" },
+    { title: "UP (KARINA Solo)", artists: "aespa" },
+  ];
+  const headerHeight = useAppSelector((state) => state.ui.headerHeight);
   return (
-    <div className="w-full relative overflow-hidden select-none flex">
-      <div className="w-full h-full px-10 py-6 flex flex-col">
+    <div
+      style={{
+        height:
+          headerHeight === 0 ? "0" : `calc(100vh - ${headerHeight + 90}px)`,
+      }}
+      className="w-full relative overflow-hidden select-none flex p-3"
+    >
+      <div className="w-full h-full  flex flex-col pr-1.5">
         <div
-          className="w-full  relative py-2 h-64 group"
+          className="w-full  relative  h-52 group"
           onMouseEnter={handleMouseEnter}
-          onMouseLeave={handleMouseLeave}>
+          onMouseLeave={handleMouseLeave}
+        >
           {!isFirstTime && (
             <>
               <span
                 onClick={handlePrevious}
-                className="absolute transition-all duration-300 flex opacity-0 invisible group-hover:!opacity-100 group-hover:!visible !text-4xl cursor-pointer text-white w-14 h-14 rounded-full left-0 bg-[#ffffff26] z-50 top-1/2 translate-x-1/2 -translate-y-1/4 items-center justify-center">
+                className="absolute transition-all duration-300 flex opacity-0 invisible group-hover:!opacity-100 group-hover:!visible !text-4xl cursor-pointer text-white w-14 h-14 rounded-full left-0 bg-[#ffffff26] z-50 top-1/2 translate-x-1/2 -translate-y-1/4 items-center justify-center"
+              >
                 <GrFormPrevious />
               </span>
               <span
                 onClick={handleNext}
-                className="absolute transition-all duration-300 flex opacity-0 invisible group-hover:!opacity-100 group-hover:!visible !text-4xl cursor-pointer text-white w-14 h-14 rounded-full right-0 bg-[#ffffff26] z-50 top-1/2 -translate-x-1/2 -translate-y-1/4 items-center justify-center">
+                className="absolute transition-all duration-300 flex opacity-0 invisible group-hover:!opacity-100 group-hover:!visible !text-4xl cursor-pointer text-white w-14 h-14 rounded-full right-0 bg-[#ffffff26] z-50 top-1/2 -translate-x-1/2 -translate-y-1/4 items-center justify-center"
+              >
                 <GrFormNext />
               </span>
             </>
           )}
-          <div ref={containerRef} className="w-full absolute py-2 h-full">
+          <div ref={containerRef} className="w-full absolute  h-full">
             {src.map((imageSrc, index) => (
               <div
                 key={index}
-                className="absolute px-2 w-[calc(100%/3)] h-full cursor-pointer"
+                className="absolute  w-[calc(100%/3)] h-full cursor-pointer first:pr-5 last:pl-5"
                 style={{
                   left: "33.33%",
                   opacity: index === 1 ? "1" : "0.2",
-                }}>
+                }}
+              >
                 <div
                   className="w-full h-full rounded-lg "
                   style={{
                     backgroundImage: `url(${imageSrc})`,
                     backgroundSize: "cover",
                     backgroundRepeat: "no-repeat",
-                  }}></div>
+                  }}
+                ></div>
               </div>
             ))}
           </div>
         </div>
       </div>
-      <div className="m-4 rounded-lg w-1/4 flex flex-col gap-2 bg-header px-3">
-        <div className="text-white text-2xl py-8 font-bold flex gap-2 items-center">
-          BXH Bài Hát
-          <FaCirclePlay />
+      <div className=" group w-1/4 h-full pl-1.5">
+        <div className="group w-full h-full flex flex-col gap-2 bg-header px-3 rounded-lg custom-scroll">
+          <div className="text-white text-2xl pt-8 pb-2 font-bold flex gap-2 items-center">
+            BXH Bài Hát
+            <FaCirclePlay />
+          </div>
+          <Tab
+            tabs={[
+              {
+                content: (
+                  <div className="flex flex-col gap my-2 gap-4 group ">
+                    {songs.map((song, index) => {
+                      let rank = index + 1;
+                      let textColor = "text-white";
+                      let fontSize = "text-lg";
+                      if (rank === 1) {
+                        textColor = "text-red-500";
+                      } else if (rank === 2) {
+                        textColor = "text-teal-500";
+                      } else if (rank === 3) {
+                        textColor = "text-orange-500";
+                      }
+
+                      return (
+                        <div
+                          key={rank}
+                          className="w-full flex gap-2 items-start"
+                        >
+                          {rank === 1 ? (
+                            <div
+                              style={{
+                                backgroundImage: `url(https://photo-resize-zmp3.zmdcdn.me/w94_r1x1_jpeg/banner/2/7/b/d/27bdc67fef29c7928298c5759de08534.jpg)`,
+                                backgroundSize: "cover",
+                                backgroundPosition: "center",
+                              }}
+                              className="p-12 relative"
+                            >
+                              <span className="w-8 h-8 bg-red-500 z-10 absolute bottom-0 left-0 flex justify-center items-center font-bold text-white text-lg">
+                                {rank}
+                              </span>
+                            </div>
+                          ) : (
+                            <div
+                              className={`text-center font-bold ${textColor} ${fontSize} min-w-8 min-h-8 flex items-center justify-center`}
+                            >
+                              {rank}
+                            </div>
+                          )}
+                          <div className="flex flex-col">
+                            <h3 className="text-white font-medium text-sm">
+                              {song.title}
+                            </h3>
+                            <p className="text-[#acacac] text-xs">
+                              {song.artists}
+                            </p>
+                          </div>
+                        </div>
+                      );
+                    })}
+                  </div>
+                ),
+                key: "vietnam",
+                label: "Việt Nam",
+              },
+              {
+                content: (
+                  <div className="flex flex-col gap my-2 gap-4 group">
+                    {songsUs.map((song, index) => {
+                      let rank = index + 1;
+                      let textColor = "text-white";
+                      let fontSize = "text-lg";
+                      if (rank === 1) {
+                        textColor = "text-red-500";
+                      } else if (rank === 2) {
+                        textColor = "text-teal-500";
+                      } else if (rank === 3) {
+                        textColor = "text-orange-500";
+                      }
+
+                      return (
+                        <div
+                          key={rank}
+                          className="w-full flex gap-2 items-start"
+                        >
+                          {rank === 1 ? (
+                            <div
+                              style={{
+                                backgroundImage: `url(https://photo-resize-zmp3.zmdcdn.me/w94_r1x1_jpeg/banner/2/7/b/d/27bdc67fef29c7928298c5759de08534.jpg)`,
+                                backgroundSize: "cover",
+                                backgroundPosition: "center",
+                              }}
+                              className="p-12 relative"
+                            >
+                              <span className="w-8 h-8 bg-red-500 z-10 absolute bottom-0 left-0 flex justify-center items-center font-bold text-white text-lg">
+                                {rank}
+                              </span>
+                            </div>
+                          ) : (
+                            <div
+                              className={`text-center font-bold ${textColor} ${fontSize} min-w-8 min-h-8 flex items-center justify-center`}
+                            >
+                              {rank}
+                            </div>
+                          )}
+                          <div className="flex flex-col">
+                            <h3 className="text-white font-medium text-sm">
+                              {song.title}
+                            </h3>
+                            <p className="text-[#acacac] text-xs">
+                              {song.artists}
+                            </p>
+                          </div>
+                        </div>
+                      );
+                    })}
+                  </div>
+                ),
+                key: "aumy",
+                label: "Âu Mỹ",
+              },
+              {
+                content: (
+                  <div className="flex flex-col gap my-2 gap-4 group">
+                    {songsKorea.map((song, index) => {
+                      let rank = index + 1;
+                      let textColor = "text-white";
+                      let fontSize = "text-lg";
+                      if (rank === 1) {
+                        textColor = "text-red-500";
+                      } else if (rank === 2) {
+                        textColor = "text-teal-500";
+                      } else if (rank === 3) {
+                        textColor = "text-orange-500";
+                      }
+
+                      return (
+                        <div
+                          key={rank}
+                          className="w-full flex gap-2 items-start"
+                        >
+                          {rank === 1 ? (
+                            <div
+                              style={{
+                                backgroundImage: `url(https://photo-resize-zmp3.zmdcdn.me/w94_r1x1_jpeg/banner/2/7/b/d/27bdc67fef29c7928298c5759de08534.jpg)`,
+                                backgroundSize: "cover",
+                                backgroundPosition: "center",
+                              }}
+                              className="p-12 relative"
+                            >
+                              <span className="w-8 h-8 bg-red-500 z-10 absolute bottom-0 left-0 flex justify-center items-center font-bold text-white text-lg">
+                                {rank}
+                              </span>
+                            </div>
+                          ) : (
+                            <div
+                              className={`text-center font-bold ${textColor} ${fontSize} min-w-8 min-h-8 flex items-center justify-center`}
+                            >
+                              {rank}
+                            </div>
+                          )}
+                          <div className="flex flex-col">
+                            <h3 className="text-white font-medium text-sm">
+                              {song.title}
+                            </h3>
+                            <p className="text-[#acacac] text-xs">
+                              {song.artists}
+                            </p>
+                          </div>
+                        </div>
+                      );
+                    })}
+                  </div>
+                ),
+                key: "hanquoc",
+                label: "Hàn Quốc",
+              },
+            ]}
+          />
         </div>
-        <Tabs defaultValue="account" className="w-full ">
-          <TabsList>
-            <TabsTrigger disabled value="account">
-              Account
-            </TabsTrigger>
-            <TabsTrigger value="password">Password</TabsTrigger>
-          </TabsList>
-          <TabsContent value="account">
-            Make changes to your account here.
-          </TabsContent>
-          <TabsContent value="password">Change your password here.</TabsContent>
-        </Tabs>
       </div>
     </div>
   );

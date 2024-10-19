@@ -223,7 +223,7 @@ export default function DiscoveryPage() {
             {src.map((imageSrc, index) => (
               <div
                 key={index}
-                className="absolute  w-[calc(100%/3)] h-full cursor-pointer first:pr-5 last:pl-5"
+                className="absolute  w-[calc(100%/3)] h-full cursor-pointer first:pr-2.5 last:pl-2.5"
                 style={{
                   left: "33.33%",
                   opacity: index === 1 ? "1" : "0.2",

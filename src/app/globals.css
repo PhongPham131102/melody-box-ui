@@ -11,7 +11,9 @@ body {
     text-wrap: balance;
   }
 }
-
+:root {
+  --main-text-stroke: #fff; /* Example color, set your own */
+}
 @layer base {
   :root {
     --background: 0 0% 100%;

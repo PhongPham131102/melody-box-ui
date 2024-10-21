@@ -1,6 +1,7 @@
 "use client";
 
 import PlayLists from "@/src/components/PlayLists";
+import RankPlayLists from "@/src/components/rank-playlists";
 
 import SongMedia from "@/src/components/SongMedia";
 import Tab from "@/src/components/tabs";
@@ -345,6 +346,7 @@ export default function DiscoveryPage() {
             },
           ]}
         />
+        <RankPlayLists title="BXH Nhạc Mới" linkUrl="/test" textUrl="Tất cả" />
       </div>
       <div className=" group w-1/4 h-full pl-1.5">
         <div className="group w-full h-full flex flex-col gap-2 bg-header px-3 rounded-lg custom-scroll">

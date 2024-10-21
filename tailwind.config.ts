@@ -28,6 +28,7 @@ const config: Config = {
         "thirst-text": "#4e3e61",
         "secondary-1": "#2f2739",
         "tab-active": "#6D6875",
+
         secondary: {
           DEFAULT: "hsl(var(--secondary))",
           foreground: "hsl(var(--secondary-foreground))",
@@ -78,10 +79,57 @@ const config: Config = {
         md: "calc(var(--radius) - 2px)",
         sm: "calc(var(--radius) - 4px)",
       },
+      textStroke: {
+        "1": "1px var(--main-text-stroke)",
+        "1.5": "1.5px var(--main-text-stroke)",
+        "2": "2px var(--main-text-stroke)",
+        "2.5": "2.5px var(--main-text-stroke)",
+        "3": "3px var(--main-text-stroke)",
+        "3.5": "3.5px var(--main-text-stroke)",
+        "4": "4px var(--main-text-stroke)",
+        "4.5": "4.5px var(--main-text-stroke)",
+      },
     },
   },
   plugins: [
     require("tailwindcss-animate"),
+    function ({ addUtilities }: { addUtilities: Function }) {
+      addUtilities({
+        ".text-stroke-1": {
+          "-webkit-text-stroke": "1px var(--main-text-stroke)",
+        },
+        ".text-stroke-1.5": {
+          "-webkit-text-stroke": "1.5px var(--main-text-stroke)",
+        },
+        ".text-stroke-2": {
+          "-webkit-text-stroke": "2px var(--main-text-stroke)",
+        },
+        ".text-stroke-2.5": {
+          "-webkit-text-stroke": "2.5px var(--main-text-stroke)",
+        },
+        ".text-stroke-3": {
+          "-webkit-text-stroke": "3px var(--main-text-stroke)",
+        },
+        ".text-stroke-3.5": {
+          "-webkit-text-stroke": "3.5px var(--main-text-stroke)",
+        },
+        ".text-stroke-4": {
+          "-webkit-text-stroke": "4px var(--main-text-stroke)",
+        },
+        ".text-stroke-4.5": {
+          "-webkit-text-stroke": "4.5px var(--main-text-stroke)",
+        },
+        ".text-stroke-5": {
+          "-webkit-text-stroke": "5px var(--main-text-stroke)",
+        },
+        ".text-stroke-5.5": {
+          "-webkit-text-stroke": "5.5px var(--main-text-stroke)",
+        },
+        ".text-stroke-6": {
+          "-webkit-text-stroke": "6px var(--main-text-stroke)",
+        },
+      });
+    },
     function ({ addUtilities }: { addUtilities: Function }) {
       const newUtilities = {
         ".hover-zoom": {

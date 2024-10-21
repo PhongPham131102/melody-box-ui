@@ -1,7 +1,7 @@
 "use client";
 
 import PlayLists from "@/src/components/PlayLists";
-import PlayList from "@/src/components/PlayLists";
+
 import SongMedia from "@/src/components/SongMedia";
 import Tab from "@/src/components/tabs";
 import { useAppSelector } from "@/src/lib/hooks/redux.hook";
@@ -308,7 +308,43 @@ export default function DiscoveryPage() {
             />
           </div>
         </div>
-        <PlayLists />
+        <PlayLists
+          title="Nhạc Hot Thịnh Hành"
+          linkUrl="/test"
+          textUrl="Tất cả"
+          playlists={[
+            {
+              imgUrl:
+                "https://photo-resize-zmp3.zmdcdn.me/w320_r1x1_jpeg/cover/a/0/9/5/a095e49e8b07afb167a1498780e2af7f.jpg",
+              linkUrl: "/test",
+              title: `Những ca khúc V-pop đã "gây bão" ngay khi vừa ra mắt`,
+            },
+            {
+              imgUrl:
+                "https://photo-resize-zmp3.zmdcdn.me/w320_r1x1_jpeg/cover/a/0/9/5/a095e49e8b07afb167a1498780e2af7f.jpg",
+              linkUrl: "/test",
+              title: `Những ca khúc V-pop đã "gây bão" ngay khi vừa ra mắt`,
+            },
+            {
+              imgUrl:
+                "https://photo-resize-zmp3.zmdcdn.me/w320_r1x1_jpeg/cover/a/0/9/5/a095e49e8b07afb167a1498780e2af7f.jpg",
+              linkUrl: "/test",
+              title: `Những ca khúc V-pop đã "gây bão" ngay khi vừa ra mắt`,
+            },
+            {
+              imgUrl:
+                "https://photo-resize-zmp3.zmdcdn.me/w320_r1x1_jpeg/cover/a/0/9/5/a095e49e8b07afb167a1498780e2af7f.jpg",
+              linkUrl: "/test",
+              title: `Những ca khúc V-pop đã "gây bão" ngay khi vừa ra mắt`,
+            },
+            {
+              imgUrl:
+                "https://photo-resize-zmp3.zmdcdn.me/w320_r1x1_jpeg/cover/a/0/9/5/a095e49e8b07afb167a1498780e2af7f.jpg",
+              linkUrl: "/test",
+              title: `Những ca khúc V-pop đã "gây bão" ngay khi vừa ra mắt`,
+            },
+          ]}
+        />
       </div>
       <div className=" group w-1/4 h-full pl-1.5">
         <div className="group w-full h-full flex flex-col gap-2 bg-header px-3 rounded-lg custom-scroll">

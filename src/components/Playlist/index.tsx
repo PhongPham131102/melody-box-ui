@@ -7,7 +7,12 @@ import {
 import { BsThreeDots } from "react-icons/bs";
 import { FaPlayCircle } from "react-icons/fa";
 import { MdOutlineFavoriteBorder } from "react-icons/md";
-export default function PlayList() {
+export type PlayListProps = {
+  imgUrl: string;
+  title: string;
+  linkUrl: string;
+};
+export default function PlayList({ imgUrl, linkUrl, title }: PlayListProps) {
   return (
     <div className="flex flex-col gap-2">
       <div className="group w-full aspect-square group relative rounded-md hover-zoom cursor-pointer">
@@ -45,12 +50,12 @@ export default function PlayList() {
         <div
           className="zoomable absolute inset-0 bg-cover bg-center"
           style={{
-            backgroundImage: `url(https://photo-resize-zmp3.zmdcdn.me/w320_r1x1_jpeg/cover/5/5/d/4/55d405d13237ac0d846ac6278bac72e8.jpg)`,
+            backgroundImage: `url(${imgUrl})`,
           }}
         ></div>
       </div>
-      <div className="w-full flex flex-row justify-start items-center py-2 text-[#78747F] text-sm font-bold">
-        Những ca khúc ballad cực thấm mà bạn không thể bỏ lỡ
+      <div className="w-full flex flex-row justify-start items-center py-2 text-[#78747F] text-sm font-semibold">
+        {title}
       </div>
     </div>
   );

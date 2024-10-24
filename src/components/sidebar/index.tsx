@@ -29,7 +29,7 @@ export default function SideBar() {
 
   return (
     <div
-      className={`overflow-hidden sticky bottom-0 transition-[width] duration-500  ${
+      className={` sticky bottom-0 transition-[width] duration-500 shrink-0 ${
         headerHeight === 0 ? "w-0" : "w-56"
       }  bg-header`}
       style={{
@@ -41,7 +41,7 @@ export default function SideBar() {
       }}
     >
       <div
-        className={`w-full h-full flex-col gap-1 items-center transition-all duration-1000 ${
+        className={`w-full h-full flex flex-col  gap-1 items-center transition-all duration-1000 ${
           headerHeight === 0 ? "opacity-0 invisible" : "opacity-100 visible"
         }`}
         style={{

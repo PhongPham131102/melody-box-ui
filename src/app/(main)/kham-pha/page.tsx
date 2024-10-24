@@ -202,7 +202,7 @@ export default function DiscoveryPage() {
       }}
       className="w-full relative overflow-hidden select-none flex p-3"
     >
-      <div className="w-full   flex flex-col pr-1.5 custom-scroll">
+      <div className="w-full flex flex-col pr-1.5 custom-scroll">
         <div className="w-full">
           {" "}
           <div

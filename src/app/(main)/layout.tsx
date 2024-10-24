@@ -18,7 +18,7 @@ export default function HomeLayout({
           children={
             <>
               <Header />
-              <div className="w-full flex sticky">
+              <div className="w-full sticky flex">
                 <SideBar />
                 {children}
               </div>

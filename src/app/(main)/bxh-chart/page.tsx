@@ -94,11 +94,18 @@ export default function BxhChart() {
   ) => {
     return Math.sqrt((x2 - x1) ** 2 + (y2 - y1) ** 2);
   };
+  // Thêm trạng thái để lưu vị trí hình tròn gần chuột nhất
+  const [closestCirclePos, setClosestCirclePos] = useState<{
+    x: number;
+    y: number;
+  } | null>(null);
+  const [closestLineColor, setClosestLineColor] = useState<string | null>(null);
 
   const determineClosestLine = () => {
     const distances = [
       {
         color: "red",
+        dataPoints: dataPoints1,
         distance: Math.min(
           ...dataPoints1.map((_, i) =>
             i % 2 === 0
@@ -114,6 +121,7 @@ export default function BxhChart() {
       },
       {
         color: "yellow",
+        dataPoints: dataPoints2,
         distance: Math.min(
           ...dataPoints2.map((_, i) =>
             i % 2 === 0
@@ -129,6 +137,7 @@ export default function BxhChart() {
       },
       {
         color: "blue",
+        dataPoints: dataPoints3,
         distance: Math.min(
           ...dataPoints3.map((_, i) =>
             i % 2 === 0
@@ -147,6 +156,28 @@ export default function BxhChart() {
     const closestLine = distances.reduce((prev, curr) =>
       prev.distance < curr.distance ? prev : curr
     );
+
+    // Xác định vị trí của hình tròn gần nhất trên đường gần nhất
+    const closestCircle = closestLine.dataPoints.reduce<{
+      x: number;
+      y: number;
+      distance: number;
+    } | null>((prev, _, i) => {
+      if (i % 2 !== 0) return prev;
+      const x = closestLine.dataPoints[i];
+      const y = closestLine.dataPoints[i + 1];
+      const distance = calculateDistance(x, y, mousePos.x, mousePos.y);
+
+      return prev === null || distance < prev.distance
+        ? { x, y, distance }
+        : prev;
+    }, null);
+
+    if (closestCircle) {
+      setClosestCirclePos({ x: closestCircle.x, y: closestCircle.y });
+      setClosestLineColor(closestLine.color); // Cập nhật màu cho đường thẳng đứng
+    }
+
     setShowCircles({
       red: false,
       yellow: false,
@@ -196,6 +227,9 @@ export default function BxhChart() {
         width={canvasSize.width}
         height={canvasSize.height}
         onMouseMove={handleMouseMove}
+        onMouseLeave={() => {
+          setClosestLineColor(null);
+        }}
       >
         <Layer>
           {lines}
@@ -234,6 +268,18 @@ export default function BxhChart() {
           {circles(dataPoints3, "blue")}
 
           {texts}
+          {closestCirclePos && closestLineColor && (
+            <Line
+              points={[
+                closestCirclePos.x,
+                0,
+                closestCirclePos.x,
+                canvasSize.height,
+              ]}
+              stroke={closestLineColor || "white"}
+              strokeWidth={1}
+            />
+          )}
         </Layer>
       </Stage>
     </div>

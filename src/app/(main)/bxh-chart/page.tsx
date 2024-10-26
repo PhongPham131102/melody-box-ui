@@ -3,7 +3,7 @@
 import { useAppSelector } from "@/src/lib/hooks/redux.hook";
 import Konva from "konva";
 import { useEffect, useState } from "react";
-import { Stage, Layer, Line, Text, Circle } from "react-konva";
+import { Stage, Layer, Line, Text, Circle, Rect } from "react-konva";
 
 // Define allowed color keys as a union type
 type CircleColor = "red" | "yellow" | "blue";
@@ -58,13 +58,13 @@ export default function BxhChart() {
     }
   }
   const xPerPoint = hourPerPoint / 2;
-  console.log("xPerPoint: ", xPerPoint);
+
   function generateByXPoint(arrX: number[]) {
     const arrPoint: number[] = [];
     for (let index = 0; index < arrX.length; index++) {
       let XPoint: number = xPerPoint * index;
       XPoint += 22;
-      console.log(XPoint);
+
       const element: number = arrX[index];
       arrPoint.push(XPoint, element);
     }
@@ -278,6 +278,18 @@ export default function BxhChart() {
               ]}
               stroke={closestLineColor || "white"}
               strokeWidth={1}
+            />
+          )}
+          {closestCirclePos && (
+            <Rect
+              x={closestCirclePos.x - 100} // Đặt hình vuông tại vị trí x của hình tròn gần nhất, dịch chuyển một chút để căn giữa
+              y={closestCirclePos.y - 60} // Đặt hình vuông tại vị trí y của hình tròn gần nhất, dịch chuyển một chút để căn giữa
+              width={200} // Chiều rộng của hình vuông
+              height={50} // Chiều cao của hình vuông
+              fill={closestLineColor || "white"} // Màu của hình vuông trùng với màu của đường gần nhất
+              stroke={closestLineColor || "white"}
+              strokeWidth={1}
+              cornerRadius={5}
             />
           )}
         </Layer>

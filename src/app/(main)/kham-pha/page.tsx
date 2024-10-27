@@ -3,7 +3,7 @@
 import PlayLists from "@/src/components/PlayLists";
 import RankPlayLists from "@/src/components/rank-playlists";
 
-import SongMedia from "@/src/components/SongMedia";
+import SongMedia from "@/src/components/song-media";
 import Tab from "@/src/components/tabs";
 import { useAppSelector } from "@/src/lib/hooks/redux.hook";
 import { useEffect, useRef, useState } from "react";
@@ -200,28 +200,24 @@ export default function DiscoveryPage() {
         height:
           headerHeight === 0 ? "0" : `calc(100vh - ${headerHeight + 90}px)`,
       }}
-      className="w-full relative overflow-hidden select-none flex p-3"
-    >
+      className="w-full relative overflow-hidden select-none flex p-3">
       <div className="w-full flex flex-col pr-1.5 custom-scroll">
         <div className="w-full">
           {" "}
           <div
             className="w-full  relative  h-52 group"
             onMouseEnter={handleMouseEnter}
-            onMouseLeave={handleMouseLeave}
-          >
+            onMouseLeave={handleMouseLeave}>
             {!isFirstTime && (
               <>
                 <span
                   onClick={handlePrevious}
-                  className="absolute transition-all duration-300 flex opacity-0 invisible group-hover:!opacity-100 group-hover:!visible !text-4xl cursor-pointer text-white w-14 h-14 rounded-full left-0 bg-[#ffffff26] z-50 top-1/2 translate-x-1/2 -translate-y-1/4 items-center justify-center"
-                >
+                  className="absolute transition-all duration-300 flex opacity-0 invisible group-hover:!opacity-100 group-hover:!visible !text-4xl cursor-pointer text-white w-14 h-14 rounded-full left-0 bg-[#ffffff26] z-50 top-1/2 translate-x-1/2 -translate-y-1/4 items-center justify-center">
                   <GrFormPrevious />
                 </span>
                 <span
                   onClick={handleNext}
-                  className="absolute transition-all duration-300 flex opacity-0 invisible group-hover:!opacity-100 group-hover:!visible !text-4xl cursor-pointer text-white w-14 h-14 rounded-full right-0 bg-[#ffffff26] z-50 top-1/2 -translate-x-1/2 -translate-y-1/4 items-center justify-center"
-                >
+                  className="absolute transition-all duration-300 flex opacity-0 invisible group-hover:!opacity-100 group-hover:!visible !text-4xl cursor-pointer text-white w-14 h-14 rounded-full right-0 bg-[#ffffff26] z-50 top-1/2 -translate-x-1/2 -translate-y-1/4 items-center justify-center">
                   <GrFormNext />
                 </span>
               </>
@@ -234,16 +230,14 @@ export default function DiscoveryPage() {
                   style={{
                     left: "33.33%",
                     opacity: index === 1 ? "1" : "0.2",
-                  }}
-                >
+                  }}>
                   <div
                     className="w-full h-full rounded-lg "
                     style={{
                       backgroundImage: `url(${imageSrc})`,
                       backgroundSize: "cover",
                       backgroundRepeat: "no-repeat",
-                    }}
-                  ></div>
+                    }}></div>
                 </div>
               ))}
             </div>
@@ -374,8 +368,7 @@ export default function DiscoveryPage() {
                       return (
                         <div
                           key={rank}
-                          className="w-full flex gap-2 items-start"
-                        >
+                          className="w-full flex gap-2 items-start">
                           {rank === 1 ? (
                             <div
                               style={{
@@ -383,16 +376,14 @@ export default function DiscoveryPage() {
                                 backgroundSize: "cover",
                                 backgroundPosition: "center",
                               }}
-                              className="p-12 relative"
-                            >
+                              className="p-12 relative">
                               <span className="w-8 h-8 bg-red-500 z-10 absolute bottom-0 left-0 flex justify-center items-center font-bold text-white text-lg">
                                 {rank}
                               </span>
                             </div>
                           ) : (
                             <div
-                              className={`text-center font-bold ${textColor} ${fontSize} min-w-8 min-h-8 flex items-center justify-center`}
-                            >
+                              className={`text-center font-bold ${textColor} ${fontSize} min-w-8 min-h-8 flex items-center justify-center`}>
                               {rank}
                             </div>
                           )}
@@ -430,8 +421,7 @@ export default function DiscoveryPage() {
                       return (
                         <div
                           key={rank}
-                          className="w-full flex gap-2 items-start"
-                        >
+                          className="w-full flex gap-2 items-start">
                           {rank === 1 ? (
                             <div
                               style={{
@@ -439,16 +429,14 @@ export default function DiscoveryPage() {
                                 backgroundSize: "cover",
                                 backgroundPosition: "center",
                               }}
-                              className="p-12 relative"
-                            >
+                              className="p-12 relative">
                               <span className="w-8 h-8 bg-red-500 z-10 absolute bottom-0 left-0 flex justify-center items-center font-bold text-white text-lg">
                                 {rank}
                               </span>
                             </div>
                           ) : (
                             <div
-                              className={`text-center font-bold ${textColor} ${fontSize} min-w-8 min-h-8 flex items-center justify-center`}
-                            >
+                              className={`text-center font-bold ${textColor} ${fontSize} min-w-8 min-h-8 flex items-center justify-center`}>
                               {rank}
                             </div>
                           )}
@@ -486,8 +474,7 @@ export default function DiscoveryPage() {
                       return (
                         <div
                           key={rank}
-                          className="w-full flex gap-2 items-start"
-                        >
+                          className="w-full flex gap-2 items-start">
                           {rank === 1 ? (
                             <div
                               style={{
@@ -495,16 +482,14 @@ export default function DiscoveryPage() {
                                 backgroundSize: "cover",
                                 backgroundPosition: "center",
                               }}
-                              className="p-12 relative"
-                            >
+                              className="p-12 relative">
                               <span className="w-8 h-8 bg-red-500 z-10 absolute bottom-0 left-0 flex justify-center items-center font-bold text-white text-lg">
                                 {rank}
                               </span>
                             </div>
                           ) : (
                             <div
-                              className={`text-center font-bold ${textColor} ${fontSize} min-w-8 min-h-8 flex items-center justify-center`}
-                            >
+                              className={`text-center font-bold ${textColor} ${fontSize} min-w-8 min-h-8 flex items-center justify-center`}>
                               {rank}
                             </div>
                           )}

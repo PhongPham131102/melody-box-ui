@@ -1,4 +1,5 @@
 "use client";
+import useThrottle from "@/src/lib/hooks/useThrottle.hook";
 import { useEffect, useState } from "react";
 import { Stage, Layer, Line, Text, Circle, Rect, Image } from "react-konva";
 
@@ -31,8 +32,9 @@ export default function ChartMusic() {
   }
 
   const texts = [];
-  let currentTime = Math.floor(new Date().getHours());
+
   const hourPerPoint = 103;
+  let currentTime = (Math.floor(new Date().getHours()) - 22 + 24) % 24; // Bắt đầu từ giờ sớm nhất trong chuỗi
   for (let x = 0; x < 12; x++) {
     const timeString = `${currentTime.toString().padStart(2, "0")}:00`;
     texts.push(
@@ -47,10 +49,7 @@ export default function ChartMusic() {
         fill="#959198"
       />
     );
-    currentTime -= 2;
-    if (currentTime < 0) {
-      currentTime += 24;
-    }
+    currentTime = (currentTime + 2) % 24; // Tăng 2 giờ và quay về 0 nếu quá 23
   }
   const xPerPoint = hourPerPoint / 2;
 
@@ -212,12 +211,12 @@ export default function ChartMusic() {
   const imageObj = new window.Image();
   imageObj.src =
     "https://photo-resize-zmp3.zmdcdn.me/w94_r1x1_jpeg/banner/b/c/2/d/bc2da7af00b2f1c9029aedcac0b5002f.jpg";
-
+  const throttledMouseMove = useThrottle(handleMouseMove, 50);
   return (
     <Stage
       width={canvasSize.width}
       height={canvasSize.height}
-      onMouseMove={handleMouseMove}
+      onMouseMove={throttledMouseMove}
       onMouseLeave={() => {
         setClosestLineColor(null);
       }}

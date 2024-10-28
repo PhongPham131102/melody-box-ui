@@ -1,4 +1,5 @@
-// import ChartMusic from "@/src/components/chart-music";
+"use client";
+import ChartMusic from "@/src/components/chart-music";
 import { useAppSelector } from "@/src/lib/hooks/redux.hook";
 
 export default function BxhChart() {
@@ -12,7 +13,7 @@ export default function BxhChart() {
       }}
       className="relative overflow-hidden select-none flex p-3 w-full bg-main"
     >
-      {/* <ChartMusic /> */}
+      <ChartMusic />
     </div>
   );
 }

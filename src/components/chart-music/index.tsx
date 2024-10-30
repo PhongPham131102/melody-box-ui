@@ -13,7 +13,7 @@ export default function ChartMusic() {
     "#4A90E2": false,
   });
   const [mousePos, setMousePos] = useState({ x: 0, y: 0 });
-
+  const [isHovered, setIsHovered] = useState(false); // Trạng thái kiểm tra có hover hay không
   const widthPointPerHorizontal = canvasSize.width / 13;
   const widthPointPerVertical = canvasSize.height / 5 - 5;
 
@@ -187,8 +187,39 @@ export default function ChartMusic() {
   const handleMouseMove = (e: any) => {
     const stage = e.target.getStage();
     const mousePos = stage.getPointerPosition();
-    setMousePos({ x: mousePos.x, y: mousePos.y });
+    setMousePos(mousePos);
+    setIsHovered(true);
+    determineClosestLine();
   };
+  const allDataPoints = [dataPoints1, dataPoints2, dataPoints3];
+  // Cập nhật ngẫu nhiên `closestCirclePos` mỗi 3 giây khi không có hover
+  useEffect(() => {
+    if (isHovered) return;
+    const interval = setInterval(() => {
+      const randomLineIndex = Math.floor(Math.random() * allDataPoints.length);
+      const randomDataPoints = allDataPoints[randomLineIndex];
+      const randomPointIndex =
+        Math.floor(Math.random() * (randomDataPoints.length / 2)) * 2;
+      const x = randomDataPoints[randomPointIndex];
+      const y = randomDataPoints[randomPointIndex + 1];
+
+      setClosestCirclePos({ x, y });
+      setClosestLineColor(
+        randomLineIndex === 0
+          ? "#E35050"
+          : randomLineIndex === 1
+          ? "#27BD9C"
+          : "#4A90E2"
+      );
+      setShowCircles({
+        "#E35050": randomLineIndex === 0,
+        "#27BD9C": randomLineIndex === 1,
+        "#4A90E2": randomLineIndex === 2,
+      });
+    }, 3000);
+
+    return () => clearInterval(interval);
+  }, [isHovered]);
 
   const circles = (dataPoints: number[], colorKey: CircleColor) =>
     dataPoints.reduce((acc: JSX.Element[], point, i) => {
@@ -217,8 +248,9 @@ export default function ChartMusic() {
       width={canvasSize.width}
       height={canvasSize.height}
       onMouseMove={throttledMouseMove}
+      onMouseEnter={() => setIsHovered(true)}
       onMouseLeave={() => {
-        setClosestLineColor(null);
+        setIsHovered(false);
       }}
     >
       <Layer>

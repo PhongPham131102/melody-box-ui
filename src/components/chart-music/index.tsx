@@ -184,6 +184,48 @@ export default function ChartMusic() {
     determineClosestLine();
   }, [mousePos]);
 
+  const [circleRadii, setCircleRadii] = useState<Record<CircleColor, number>>({
+    "#E35050": 0,
+    "#27BD9C": 0,
+    "#4A90E2": 0,
+  });
+  const maxRadius = 5; // Bán kính tối đa của hình tròn
+  const [previousColor, setPreviousColor] = useState<CircleColor | null>(null);
+  // Reset circle radii when `showCircles` changes
+  useEffect(() => {
+    const currentColor = (Object.keys(showCircles) as CircleColor[]).find(
+      (color) => showCircles[color]
+    );
+
+    // Reset radius only if the color has changed
+    if (currentColor && currentColor !== previousColor) {
+      setCircleRadii((prevRadii) => ({
+        ...prevRadii,
+        [currentColor]: 0, // Reset bán kính về 0 khi chuyển màu mới
+      }));
+      setPreviousColor(currentColor);
+    }
+  }, [showCircles, previousColor]);
+
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setCircleRadii((prevRadii) => {
+        const newRadii = { ...prevRadii };
+
+        (Object.entries(newRadii) as [CircleColor, number][]).forEach(
+          ([color, radius]) => {
+            if (showCircles[color] && radius < maxRadius) {
+              newRadii[color] = radius + 0.5;
+            }
+          }
+        );
+
+        return newRadii;
+      });
+    }, 10);
+
+    return () => clearInterval(interval);
+  }, [showCircles]);
   const handleMouseMove = (e: any) => {
     const stage = e.target.getStage();
     const mousePos = stage.getPointerPosition();
@@ -224,12 +266,21 @@ export default function ChartMusic() {
   const circles = (dataPoints: number[], colorKey: CircleColor) =>
     dataPoints.reduce((acc: JSX.Element[], point, i) => {
       if (i % 2 === 0) {
+        const x = dataPoints[i];
+        const y = dataPoints[i + 1];
+        const isHoveredCircle =
+          closestCirclePos?.x === x && closestCirclePos?.y === y;
+
         acc.push(
           <Circle
             key={`circle-${colorKey}-${i / 2}`}
-            x={dataPoints[i] + 1}
-            y={dataPoints[i + 1]}
-            radius={5}
+            x={x + 1}
+            y={y}
+            radius={
+              isHoveredCircle
+                ? circleRadii[colorKey] + 2
+                : circleRadii[colorKey]
+            }
             fill="white"
             stroke={colorKey}
             strokeWidth={3}
@@ -239,6 +290,7 @@ export default function ChartMusic() {
       }
       return acc;
     }, []);
+
   const imageObj = new window.Image();
   imageObj.src =
     "https://photo-resize-zmp3.zmdcdn.me/w94_r1x1_jpeg/banner/b/c/2/d/bc2da7af00b2f1c9029aedcac0b5002f.jpg";

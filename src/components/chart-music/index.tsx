@@ -312,7 +312,7 @@ export default function ChartMusic() {
         <Line
           points={dataPoints1}
           stroke="#ff4444"
-          strokeWidth={2}
+          strokeWidth={1.5}
           lineCap="round"
           lineJoin="round"
           tension={0.4}
@@ -322,7 +322,7 @@ export default function ChartMusic() {
         <Line
           points={dataPoints2}
           stroke="#27BD9C"
-          strokeWidth={2}
+          strokeWidth={1.5}
           lineCap="round"
           lineJoin="round"
           tension={0.4}
@@ -332,7 +332,7 @@ export default function ChartMusic() {
         <Line
           points={dataPoints3}
           stroke="#4A90E2"
-          strokeWidth={2}
+          strokeWidth={1.5}
           lineCap="round"
           lineJoin="round"
           tension={0.4}

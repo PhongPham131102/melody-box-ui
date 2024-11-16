@@ -303,198 +303,208 @@ export default function ChartMusic() {
   }, []);
   const throttledMouseMove = useThrottle(handleMouseMove, 50);
   return (
-    <Stage
-      width={canvasSize.width}
-      height={canvasSize.height}
-      onMouseMove={throttledMouseMove}
-      onMouseEnter={() => setIsHovered(true)}
-      onMouseLeave={() => {
-        setIsHovered(false);
-      }}
-    >
-      <Layer>
-        {lines}
+    <div className="flex flex-col gap-5">
+      <Stage
+        width={canvasSize.width}
+        height={canvasSize.height}
+        onMouseMove={throttledMouseMove}
+        onMouseEnter={() => setIsHovered(true)}
+        onMouseLeave={() => {
+          setIsHovered(false);
+        }}
+      >
+        <Layer>
+          {lines}
 
-        {/* #E35050 Line */}
-        <Line
-          points={dataPoints1}
-          stroke="#ff4444"
-          strokeWidth={1.5}
-          lineCap="round"
-          lineJoin="round"
-          tension={0.4}
-        />
-
-        {/* #27BD9C Line */}
-        <Line
-          points={dataPoints2}
-          stroke="#27BD9C"
-          strokeWidth={1.5}
-          lineCap="round"
-          lineJoin="round"
-          tension={0.4}
-        />
-
-        {/* #4A90E2 Line */}
-        <Line
-          points={dataPoints3}
-          stroke="#4A90E2"
-          strokeWidth={1.5}
-          lineCap="round"
-          lineJoin="round"
-          tension={0.4}
-        />
-
-        {texts}
-        {closestCirclePos && closestLineColor && (
+          {/* #E35050 Line */}
           <Line
-            points={[
-              closestCirclePos.x,
-              0,
-              closestCirclePos.x,
-              canvasSize.height,
-            ]}
-            stroke={closestLineColor || "white"}
-            strokeWidth={1}
+            points={dataPoints1}
+            stroke="#ff4444"
+            strokeWidth={1.5}
+            lineCap="round"
+            lineJoin="round"
+            tension={0.4}
           />
-        )}
-        {circles(dataPoints1, "#E35050")}
-        {circles(dataPoints2, "#27BD9C")}
-        {circles(dataPoints3, "#4A90E2")}
-        {closestCirclePos && (
-          <>
-            <Rect
-              x={Math.max(
-                10,
-                Math.min(closestCirclePos.x - 100, canvasSize.width - 210) // ở đây lấy số nhỏ nhất của điểm hiện tại hình tròn trừ 100 tức 1 nữa của hình vuông để nó ở giữa mình vuông
-                // còn cái còn lại là lấy chiều rộng của khung canvas sau đó trừ 200 tức chiều rộng của hình vuông
-                // sau đó lấy giá trị nhỏ hơn vì nếu x và hình vuông không quá khung canvas thì sẽ nhỏ hơn giá trị của khung canvas trừ 200
-              )} // max ở đây để phòng trường hợp khi x nhỏ hơn không thì lấy nó là x
-              y={
-                closestCirclePos.y - 60 < 0
-                  ? closestCirclePos.y + 15
-                  : closestCirclePos.y - 60
-              } // nếu như khung vuông lớn hơn trừ đi 65 (50 là chiều cao của khung vuông còn 15 là khoảng trổng làm mũi tên) nhỏ hơn 0
-              //tức nó không đủ chiều cao để hiển thị ở trên thì để khung vuông hiển thị ở dưới điểm tròn còn ngược lại thì hiển thị ở trên điểm tròn
-              width={200} // Chiều rộng của hình vuông
-              height={45} // Chiều cao của hình vuông
-              fill={closestLineColor || "transparent"}
-              stroke={closestLineColor || "transparent"}
+
+          {/* #27BD9C Line */}
+          <Line
+            points={dataPoints2}
+            stroke="#27BD9C"
+            strokeWidth={1.5}
+            lineCap="round"
+            lineJoin="round"
+            tension={0.4}
+          />
+
+          {/* #4A90E2 Line */}
+          <Line
+            points={dataPoints3}
+            stroke="#4A90E2"
+            strokeWidth={1.5}
+            lineCap="round"
+            lineJoin="round"
+            tension={0.4}
+          />
+
+          {texts}
+          {closestCirclePos && closestLineColor && (
+            <Line
+              points={[
+                closestCirclePos.x,
+                0,
+                closestCirclePos.x,
+                canvasSize.height,
+              ]}
+              stroke={closestLineColor || "white"}
               strokeWidth={1}
-              cornerRadius={5}
             />
-            {/* Hình ảnh đại diện */}
-            {imageObj && (
-              <Image
-                image={imageObj}
+          )}
+          {circles(dataPoints1, "#E35050")}
+          {circles(dataPoints2, "#27BD9C")}
+          {circles(dataPoints3, "#4A90E2")}
+          {closestCirclePos && (
+            <>
+              <Rect
+                x={Math.max(
+                  10,
+                  Math.min(closestCirclePos.x - 100, canvasSize.width - 210) // ở đây lấy số nhỏ nhất của điểm hiện tại hình tròn trừ 100 tức 1 nữa của hình vuông để nó ở giữa mình vuông
+                  // còn cái còn lại là lấy chiều rộng của khung canvas sau đó trừ 200 tức chiều rộng của hình vuông
+                  // sau đó lấy giá trị nhỏ hơn vì nếu x và hình vuông không quá khung canvas thì sẽ nhỏ hơn giá trị của khung canvas trừ 200
+                )} // max ở đây để phòng trường hợp khi x nhỏ hơn không thì lấy nó là x
+                y={
+                  closestCirclePos.y - 60 < 0
+                    ? closestCirclePos.y + 15
+                    : closestCirclePos.y - 60
+                } // nếu như khung vuông lớn hơn trừ đi 65 (50 là chiều cao của khung vuông còn 15 là khoảng trổng làm mũi tên) nhỏ hơn 0
+                //tức nó không đủ chiều cao để hiển thị ở trên thì để khung vuông hiển thị ở dưới điểm tròn còn ngược lại thì hiển thị ở trên điểm tròn
+                width={200} // Chiều rộng của hình vuông
+                height={45} // Chiều cao của hình vuông
+                fill={closestLineColor || "transparent"}
+                stroke={closestLineColor || "transparent"}
+                strokeWidth={1}
+                cornerRadius={5}
+              />
+              {/* Hình ảnh đại diện */}
+              {imageObj && (
+                <Image
+                  image={imageObj}
+                  x={
+                    Math.max(
+                      10,
+                      Math.min(closestCirclePos.x - 100, canvasSize.width - 210)
+                    ) + 5
+                  }
+                  y={
+                    closestCirclePos.y - 60 < 0
+                      ? closestCirclePos.y + 20
+                      : closestCirclePos.y - 55
+                  }
+                  width={35}
+                  height={35}
+                  cornerRadius={3}
+                  opacity={closestLineColor ? 100 : 0}
+                />
+              )}
+              {/* Tiêu đề */}
+              <Text
+                text="Anh Đau Từ Lúc Em Đi"
+                ellipsis={true}
+                wrap={"none"}
                 x={
                   Math.max(
                     10,
                     Math.min(closestCirclePos.x - 100, canvasSize.width - 210)
-                  ) + 5
+                  ) + 45
                 }
                 y={
                   closestCirclePos.y - 60 < 0
-                    ? closestCirclePos.y + 20
-                    : closestCirclePos.y - 55
+                    ? closestCirclePos.y + 25
+                    : closestCirclePos.y - 53
                 }
-                width={35}
-                height={35}
-                cornerRadius={3}
-                opacity={closestLineColor ? 100 : 0}
+                fontSize={12}
+                fontStyle="bold"
+                fill={closestLineColor ? "white" : "transparent"}
+                width={120}
               />
-            )}
-            {/* Tiêu đề */}
-            <Text
-              text="Anh Đau Từ Lúc Em Đi"
-              ellipsis={true}
-              wrap={"none"}
-              x={
-                Math.max(
-                  10,
-                  Math.min(closestCirclePos.x - 100, canvasSize.width - 210)
-                ) + 45
-              }
-              y={
+              {/* Tên tác giả */}
+              <Text
+                text="Trần Mạnh Cường"
+                ellipsis={true}
+                wrap={"none"}
+                x={
+                  Math.max(
+                    10,
+                    Math.min(closestCirclePos.x - 100, canvasSize.width - 210)
+                  ) + 45
+                }
+                y={
+                  closestCirclePos.y - 60 < 0
+                    ? closestCirclePos.y + 37
+                    : closestCirclePos.y - 40
+                }
+                fontSize={10}
+                fill={closestLineColor ? "#d0d0d0" : "transparent"}
+                width={120}
+              />
+              {/* Phần trăm */}
+              <Text
+                text="42%"
+                ellipsis={true}
+                wrap={"none"}
+                x={
+                  Math.max(
+                    10,
+                    Math.min(closestCirclePos.x - 100, canvasSize.width - 210)
+                  ) + 170
+                }
+                y={
+                  closestCirclePos.y - 60 < 0
+                    ? closestCirclePos.y + 33
+                    : closestCirclePos.y - 43
+                }
+                fontSize={12}
+                fill={closestLineColor ? "white" : "transparent"}
+                fontStyle="bold"
+              />
+            </>
+          )}
+          {closestCirclePos && (
+            <Line
+              points={
                 closestCirclePos.y - 60 < 0
-                  ? closestCirclePos.y + 25
-                  : closestCirclePos.y - 53
+                  ? [
+                      closestCirclePos.x + 5,
+                      closestCirclePos.y + 15,
+                      closestCirclePos.x,
+                      closestCirclePos.y + 5,
+                      closestCirclePos.x - 5,
+                      closestCirclePos.y + 15,
+                    ]
+                  : [
+                      closestCirclePos.x - 5,
+                      closestCirclePos.y - 15,
+                      closestCirclePos.x,
+                      closestCirclePos.y - 5,
+                      closestCirclePos.x + 5,
+                      closestCirclePos.y - 15,
+                    ]
               }
-              fontSize={12}
-              fontStyle="bold"
-              fill={closestLineColor ? "white" : "transparent"}
-              width={120}
+              fill={closestLineColor || "transparent"}
+              closed={true}
+              stroke={closestLineColor || "transparent"}
+              strokeWidth={1}
             />
-            {/* Tên tác giả */}
-            <Text
-              text="Trần Mạnh Cường"
-              ellipsis={true}
-              wrap={"none"}
-              x={
-                Math.max(
-                  10,
-                  Math.min(closestCirclePos.x - 100, canvasSize.width - 210)
-                ) + 45
-              }
-              y={
-                closestCirclePos.y - 60 < 0
-                  ? closestCirclePos.y + 37
-                  : closestCirclePos.y - 40
-              }
-              fontSize={10}
-              fill={closestLineColor ? "#d0d0d0" : "transparent"}
-              width={120}
-            />
-            {/* Phần trăm */}
-            <Text
-              text="42%"
-              ellipsis={true}
-              wrap={"none"}
-              x={
-                Math.max(
-                  10,
-                  Math.min(closestCirclePos.x - 100, canvasSize.width - 210)
-                ) + 170
-              }
-              y={
-                closestCirclePos.y - 60 < 0
-                  ? closestCirclePos.y + 33
-                  : closestCirclePos.y - 43
-              }
-              fontSize={12}
-              fill={closestLineColor ? "white" : "transparent"}
-              fontStyle="bold"
-            />
-          </>
-        )}
-        {closestCirclePos && (
-          <Line
-            points={
-              closestCirclePos.y - 60 < 0
-                ? [
-                    closestCirclePos.x + 5,
-                    closestCirclePos.y + 15,
-                    closestCirclePos.x,
-                    closestCirclePos.y + 5,
-                    closestCirclePos.x - 5,
-                    closestCirclePos.y + 15,
-                  ]
-                : [
-                    closestCirclePos.x - 5,
-                    closestCirclePos.y - 15,
-                    closestCirclePos.x,
-                    closestCirclePos.y - 5,
-                    closestCirclePos.x + 5,
-                    closestCirclePos.y - 15,
-                  ]
-            }
-            fill={closestLineColor || "transparent"}
-            closed={true}
-            stroke={closestLineColor || "transparent"}
-            strokeWidth={1}
-          />
-        )}
-      </Layer>
-    </Stage>
+          )}
+        </Layer>
+      </Stage>
+      <div className="w-full py-2 px-5 flex flex-col">
+        <div className="w-full border-b-[1px] border-b-main-1 py-2 flex justify-between items-center">
+          <h1 className="opacity-40 text-[32px] font-black text-transparent leading-none text-stroke-1 text-stroke-red-500 tracking-widest font-sans">
+            1
+          </h1>
+          <div className="h-[1.5px] w-4 bg-gray-400"></div>
+        </div>
+      </div>
+    </div>
   );
 }

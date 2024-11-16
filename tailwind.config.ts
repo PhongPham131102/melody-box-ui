@@ -93,43 +93,56 @@ const config: Config = {
   },
   plugins: [
     require("tailwindcss-animate"),
-    function ({ addUtilities }: { addUtilities: Function }) {
+    function ({
+      addUtilities,
+      theme,
+    }: {
+      addUtilities: Function;
+      theme: Function;
+    }) {
+      const textStrokeWidths = {
+        "1": "1px",
+        "1.5": "1.5px",
+        "2": "2px",
+        "3": "3px",
+      };
+
+      const textStrokeUtilities = Object.entries(textStrokeWidths).reduce(
+        (acc, [key, value]) => {
+          acc[`.text-stroke-${key}`] = {
+            "-webkit-text-stroke": `${value} var(--main-text-stroke, currentColor)`,
+          };
+          return acc;
+        },
+        {} as Record<string, Record<string, string>>
+      );
+
+      const colorUtilities = Object.entries(theme("colors")).reduce(
+        (acc, [colorName, colorValue]) => {
+          if (typeof colorValue === "string") {
+            acc[`.text-stroke-${colorName}`] = {
+              "--main-text-stroke": colorValue,
+            };
+          } else if (typeof colorValue === "object" && colorValue !== null) {
+            Object.entries(colorValue).forEach(([shade, shadeValue]) => {
+              if (typeof shadeValue === "string") {
+                acc[`.text-stroke-${colorName}-${shade}`] = {
+                  "--main-text-stroke": shadeValue,
+                };
+              }
+            });
+          }
+          return acc;
+        },
+        {} as Record<string, Record<string, string>>
+      );
+
       addUtilities({
-        ".text-stroke-1": {
-          "-webkit-text-stroke": "1px var(--main-text-stroke)",
-        },
-        ".text-stroke-1.5": {
-          "-webkit-text-stroke": "1.5px var(--main-text-stroke)",
-        },
-        ".text-stroke-2": {
-          "-webkit-text-stroke": "2px var(--main-text-stroke)",
-        },
-        ".text-stroke-2.5": {
-          "-webkit-text-stroke": "2.5px var(--main-text-stroke)",
-        },
-        ".text-stroke-3": {
-          "-webkit-text-stroke": "3px var(--main-text-stroke)",
-        },
-        ".text-stroke-3.5": {
-          "-webkit-text-stroke": "3.5px var(--main-text-stroke)",
-        },
-        ".text-stroke-4": {
-          "-webkit-text-stroke": "4px var(--main-text-stroke)",
-        },
-        ".text-stroke-4.5": {
-          "-webkit-text-stroke": "4.5px var(--main-text-stroke)",
-        },
-        ".text-stroke-5": {
-          "-webkit-text-stroke": "5px var(--main-text-stroke)",
-        },
-        ".text-stroke-5.5": {
-          "-webkit-text-stroke": "5.5px var(--main-text-stroke)",
-        },
-        ".text-stroke-6": {
-          "-webkit-text-stroke": "6px var(--main-text-stroke)",
-        },
+        ...textStrokeUtilities,
+        ...colorUtilities,
       });
     },
+
     function ({ addUtilities }: { addUtilities: Function }) {
       const newUtilities = {
         ".hover-zoom": {

@@ -291,9 +291,16 @@ export default function ChartMusic() {
       return acc;
     }, []);
 
-  const imageObj = new window.Image();
-  imageObj.src =
-    "https://photo-resize-zmp3.zmdcdn.me/w94_r1x1_jpeg/banner/b/c/2/d/bc2da7af00b2f1c9029aedcac0b5002f.jpg";
+  const [imageObj, setImageObj] = useState<HTMLImageElement | null>(null);
+
+  useEffect(() => {
+    if (typeof window !== "undefined") {
+      const img = new window.Image();
+      img.src =
+        "https://photo-resize-zmp3.zmdcdn.me/w94_r1x1_jpeg/banner/b/c/2/d/bc2da7af00b2f1c9029aedcac0b5002f.jpg";
+      setImageObj(img);
+    }
+  }, []);
   const throttledMouseMove = useThrottle(handleMouseMove, 50);
   return (
     <Stage
@@ -377,24 +384,26 @@ export default function ChartMusic() {
               cornerRadius={5}
             />
             {/* Hình ảnh đại diện */}
-            <Image
-              image={imageObj}
-              x={
-                Math.max(
-                  10,
-                  Math.min(closestCirclePos.x - 100, canvasSize.width - 210)
-                ) + 5
-              }
-              y={
-                closestCirclePos.y - 60 < 0
-                  ? closestCirclePos.y + 20
-                  : closestCirclePos.y - 55
-              }
-              width={35}
-              height={35}
-              cornerRadius={3}
-              opacity={closestLineColor ? 100 : 0}
-            />
+            {imageObj && (
+              <Image
+                image={imageObj}
+                x={
+                  Math.max(
+                    10,
+                    Math.min(closestCirclePos.x - 100, canvasSize.width - 210)
+                  ) + 5
+                }
+                y={
+                  closestCirclePos.y - 60 < 0
+                    ? closestCirclePos.y + 20
+                    : closestCirclePos.y - 55
+                }
+                width={35}
+                height={35}
+                cornerRadius={3}
+                opacity={closestLineColor ? 100 : 0}
+              />
+            )}
             {/* Tiêu đề */}
             <Text
               text="Anh Đau Từ Lúc Em Đi"

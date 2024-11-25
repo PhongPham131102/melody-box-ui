@@ -1,8 +1,26 @@
 "use client";
 import useThrottle from "@/src/lib/hooks/useThrottle.hook";
 import { useEffect, useState } from "react";
-import { Stage, Layer, Line, Text, Circle, Rect, Image } from "react-konva";
-
+import {
+  Stage,
+  Layer,
+  Line,
+  Text,
+  Circle,
+  Rect,
+  Image as KonvaImage,
+} from "react-konva";
+import Image from "next/image";
+import _playIcon from "@/public/icons/play.png";
+import {
+  Tooltip,
+  TooltipContent,
+  TooltipProvider,
+  TooltipTrigger,
+} from "@/components/ui/tooltip";
+import { MdOutlineFavoriteBorder } from "react-icons/md";
+import { BsThreeDots } from "react-icons/bs";
+import { FaPlayCircle } from "react-icons/fa";
 // Define allowed color keys as a union type
 type CircleColor = "#E35050" | "#27BD9C" | "#4A90E2";
 export default function ChartMusic() {
@@ -303,7 +321,15 @@ export default function ChartMusic() {
   }, []);
   const throttledMouseMove = useThrottle(handleMouseMove, 50);
   return (
-    <div className="flex flex-col gap-5">
+    <div className="flex flex-col gap-3">
+      <div className="w-full flex justify-start items-center ">
+        <h3 className="text-[40px] leading-[48px] font-bold text-transparent bg-clip-text bg-[radial-gradient(50%_124.93%_at_95.86%_-10%,_#3efad9_0%,_rgba(255,255,255,0)_100%),_linear-gradient(91.56deg,_#ff9357_1.54%,_#9100ff_98.71%)]">
+          #zingchart
+        </h3>
+        <span className="p-2 hover:bg-[#ffffff1a]  rounded-full cursor-pointer text-white hover:text-secondary-text text-4xl">
+          <FaPlayCircle />
+        </span>
+      </div>
       <Stage
         width={canvasSize.width}
         height={canvasSize.height}
@@ -386,7 +412,7 @@ export default function ChartMusic() {
               />
               {/* Hình ảnh đại diện */}
               {imageObj && (
-                <Image
+                <KonvaImage
                   image={imageObj}
                   x={
                     Math.max(
@@ -497,14 +523,6 @@ export default function ChartMusic() {
           )}
         </Layer>
       </Stage>
-      <div className="w-full py-2 px-5 flex flex-col">
-        <div className="w-full border-b-[1px] border-b-main-1 py-2 flex justify-between items-center">
-          <h1 className="opacity-40 text-[32px] font-black text-transparent leading-none text-stroke-1 text-stroke-red-500 tracking-widest font-sans">
-            1
-          </h1>
-          <div className="h-[1.5px] w-4 bg-gray-400"></div>
-        </div>
-      </div>
     </div>
   );
 }

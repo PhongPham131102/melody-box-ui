@@ -106,20 +106,22 @@ export default function BxhChart() {
       }}
       className="relative overflow-hidden select-none flex p-3 w-full bg-main"
     >
-      <div className="flex flex-col gap-5 custom-scroll px-8">
-        <ChartMusic />
-        <div className="w-full py-2 px-2 flex flex-col gap-1">
-          {sampleSongs.map((song) => (
-            <RankingMedia
-              key={song.rank}
-              rank={song.rank}
-              imageSrc={song.imageSrc}
-              title={song.title}
-              artists={song.artists}
-              album={song.album}
-              duration={song.duration}
-            />
-          ))}
+      <div className="grid grid-flow-col grid-cols-4 gap-3 w-full">
+        <div className="flex flex-col gap-5 custom-scroll px-8 col-span-3 w-full ">
+          <ChartMusic />
+          <div className="w-full py-2 px-2 flex flex-col gap-1">
+            {sampleSongs.map((song) => (
+              <RankingMedia
+                key={song.rank}
+                rank={song.rank}
+                imageSrc={song.imageSrc}
+                title={song.title}
+                artists={song.artists}
+                album={song.album}
+                duration={song.duration}
+              />
+            ))}
+          </div>
         </div>
       </div>
     </div>

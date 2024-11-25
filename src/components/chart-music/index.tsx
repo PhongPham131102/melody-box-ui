@@ -1,6 +1,6 @@
 "use client";
 import useThrottle from "@/src/lib/hooks/useThrottle.hook";
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import {
   Stage,
   Layer,
@@ -10,21 +10,22 @@ import {
   Rect,
   Image as KonvaImage,
 } from "react-konva";
-import Image from "next/image";
 import _playIcon from "@/public/icons/play.png";
-import {
-  Tooltip,
-  TooltipContent,
-  TooltipProvider,
-  TooltipTrigger,
-} from "@/components/ui/tooltip";
-import { MdOutlineFavoriteBorder } from "react-icons/md";
-import { BsThreeDots } from "react-icons/bs";
 import { FaPlayCircle } from "react-icons/fa";
 // Define allowed color keys as a union type
 type CircleColor = "#E35050" | "#27BD9C" | "#4A90E2";
 export default function ChartMusic() {
-  const [canvasSize, setCanvasSize] = useState({ width: 1188, height: 300 });
+  const [canvasSize, setCanvasSize] = useState({ width: 0, height: 0 });
+  const chartRef = useRef<HTMLDivElement>(null);
+  const updateCanvasSize = () => {
+    if (chartRef.current) {
+      console.log("chartRef.current: ", chartRef.current.offsetWidth);
+      const width = chartRef.current.offsetWidth;
+      const height = width / 3.96;
+
+      setCanvasSize({ width, height });
+    }
+  };
   const [showCircles, setShowCircles] = useState<Record<CircleColor, boolean>>({
     "#E35050": false,
     "#27BD9C": false,
@@ -318,10 +319,20 @@ export default function ChartMusic() {
         "https://photo-resize-zmp3.zmdcdn.me/w94_r1x1_jpeg/banner/b/c/2/d/bc2da7af00b2f1c9029aedcac0b5002f.jpg";
       setImageObj(img);
     }
+    updateCanvasSize();
+    window.addEventListener("resize", updateCanvasSize);
+
+    return () => {
+      window.removeEventListener("resize", updateCanvasSize);
+    };
   }, []);
   const throttledMouseMove = useThrottle(handleMouseMove, 50);
   return (
-    <div className="flex flex-col gap-3">
+    <div
+      ref={chartRef}
+      id="chart-music"
+      className=" flex flex-col gap-3 w-full"
+    >
       <div className="w-full flex justify-start items-center ">
         <h3 className="text-[40px] leading-[48px] font-bold text-transparent bg-clip-text bg-[radial-gradient(50%_124.93%_at_95.86%_-10%,_#3efad9_0%,_rgba(255,255,255,0)_100%),_linear-gradient(91.56deg,_#ff9357_1.54%,_#9100ff_98.71%)]">
           #zingchart

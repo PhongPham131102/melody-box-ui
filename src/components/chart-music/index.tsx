@@ -19,7 +19,6 @@ export default function ChartMusic() {
   const chartRef = useRef<HTMLDivElement>(null);
   const updateCanvasSize = () => {
     if (chartRef.current) {
-      console.log("chartRef.current: ", chartRef.current.offsetWidth);
       const width = chartRef.current.offsetWidth;
       const height = width / 3.96;
 
@@ -38,6 +37,7 @@ export default function ChartMusic() {
 
   const lines = [];
   for (let index = 5; index > 0; index--) {
+    console.log("canvasSize.width: ", canvasSize.width);
     let yPoint = index * widthPointPerVertical + 0.5;
     lines.push(
       <Line

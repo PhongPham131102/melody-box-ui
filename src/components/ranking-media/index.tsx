@@ -93,7 +93,7 @@ const RankingMedia: React.FC<RankingMediaProps> = ({
       </div>
 
       {/* Duration and Actions */}
-      <div className="w-1/4 flex justify-end items-center gap-3">
+      <div className="w-1/4 flex justify-end items-center gap-1">
         <p className="text-xs text-[#ffffff80] transition-all duration-100 cursor-pointer group-hover:!hidden">
           {duration}
         </p>

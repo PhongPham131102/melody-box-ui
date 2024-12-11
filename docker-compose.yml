@@ -12,7 +12,7 @@ services:
       - "80:80"
       - "443:443"
     volumes:
-      - ./nginx.conf:/etc/nginx/nginx.conf
+      - ./nginx.conf:/etc/nginx/nginx.conf:ro
       - ./certbot/conf:/etc/letsencrypt
       - ./certbot/www:/usr/share/nginx/html
     networks:
@@ -37,7 +37,11 @@ services:
     volumes:
       - ./certbot/conf:/etc/letsencrypt
       - ./certbot/www:/usr/share/nginx/html
-    entrypoint: "/bin/sh -c 'trap exit TERM; certbot certonly --webroot -w /usr/share/nginx/html -d phamngocphong.id.vn --non-interactive --agree-tos --email phongpham131102@gmail.com; sleep 12h & wait $${!};'"
+    entrypoint: >
+      /bin/sh -c "trap exit TERM; 
+      certbot certonly --webroot -w /usr/share/nginx/html -d phamngocphong.id.vn
+      --non-interactive --agree-tos --email phongpham131102@gmail.com; 
+      sleep 12h & wait $${!};"
     networks:
       - web
 

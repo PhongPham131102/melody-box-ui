@@ -5,10 +5,10 @@ FROM node:18 AS build
 WORKDIR /app
 
 # Copy package.json và package-lock.json vào container
-COPY package*.json ./
+COPY package.json package-lock.json ./
 
 # Cài đặt các dependencies
-RUN npm install -f
+RUN npm install
 
 # Copy toàn bộ mã nguồn của dự án vào container
 COPY . .
@@ -23,7 +23,7 @@ FROM node:18-slim
 WORKDIR /app
 
 # Copy các file cần thiết từ stage build
-COPY --from=build /app ./
+COPY --from=build /app ./ 
 
 # Cài đặt các dependencies chỉ cần thiết cho môi trường production
 RUN npm install --production

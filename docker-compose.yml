@@ -7,6 +7,7 @@ services:
     container_name: nginx
     depends_on:
       - nextjs-app
+      - certbot
     ports:
       - "80:80"
       - "443:443"
@@ -36,7 +37,7 @@ services:
     volumes:
       - ./certbot/conf:/etc/letsencrypt
       - ./certbot/www:/usr/share/nginx/html
-    entrypoint: "/bin/sh -c 'trap exit TERM; while :; do certbot renew; sleep 12h & wait $${!}; done;'"
+    entrypoint: "/bin/sh -c 'trap exit TERM; certbot certonly --webroot -w /usr/share/nginx/html -d phamngocphong.id.vn --non-interactive --agree-tos --email phongpham131102@gmail.com; sleep 12h & wait $${!};'"
     networks:
       - web
 

@@ -5,7 +5,7 @@ FROM node:18 AS build
 WORKDIR /app
 
 # Copy package.json và package-lock.json vào container
-COPY package.json package-lock.json ./
+COPY package.json package-lock.json ./ 
 
 # Cài đặt các dependencies
 RUN npm install
@@ -23,13 +23,13 @@ FROM node:18-slim
 WORKDIR /app
 
 # Copy các file cần thiết từ stage build
-COPY --from=build /app ./ 
+COPY --from=build /app ./
 
 # Cài đặt các dependencies chỉ cần thiết cho môi trường production
 RUN npm install --production
 
-# Chạy ứng dụng Next.js
-CMD ["npm", "start"]
-
 # Mở port 3000 (port mặc định của Next.js)
 EXPOSE 3000
+
+# Chạy ứng dụng Next.js
+CMD ["npm", "start"]
